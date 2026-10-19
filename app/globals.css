@@ -221,9 +221,8 @@ p {
   * {
     scroll-behavior: auto !important;
     transition: none !important;
-  }
-}
-/* Етап 2: проєкти, лічильник токенів, допоміжні класи */
+  } 
+  /* Етап 2: проєкти, лічильник токенів, допоміжні класи */
 .select {
   max-width: 45%;
   padding-right: 12px;
@@ -266,4 +265,6 @@ p {
 textarea.inset {
   min-height: 96px;
   resize: vertical;
+}
+
 }

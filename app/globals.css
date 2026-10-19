@@ -223,3 +223,47 @@ p {
     transition: none !important;
   }
 }
+/* Етап 2: проєкти, лічильник токенів, допоміжні класи */
+.select {
+  max-width: 45%;
+  padding-right: 12px;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.row .inset {
+  flex: 1;
+  min-width: 0;
+}
+
+.stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.meter {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  margin: -8px 2px 0;
+}
+
+.status {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+textarea.inset {
+  min-height: 96px;
+  resize: vertical;
+}

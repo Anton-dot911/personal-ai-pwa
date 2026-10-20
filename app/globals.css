@@ -306,3 +306,17 @@ textarea.inset {
   color: var(--ink-muted);
   font-size: 0.85rem;
 }
+
+/* Вибір моделі для кожної розмови */
+.model-row {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-top: -8px;
+}
+
+.model-select {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+}

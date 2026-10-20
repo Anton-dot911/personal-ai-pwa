@@ -2,7 +2,15 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { streamMessage, toTurns, type Usage } from "@/lib/anthropic";
+import {
+  streamTurn,
+  toTurns,
+  type ApiMessage,
+  type ContentBlock,
+  type SystemBlock,
+  type TurnEvent,
+  type Usage,
+} from "@/lib/anthropic";
 import { COMPACT_THRESHOLD_TOKENS } from "@/lib/config";
 import { buildSystem, compactConversation, contextSize, splitForCompaction } from "@/lib/context";
 import {
@@ -10,20 +18,26 @@ import {
   createConversation,
   createProject,
   getApiKey,
+  getFileBlob,
   getMessages,
   getModel,
   listConversations,
   listProjects,
+  saveFile,
   touchConversation,
   updateConversationSummary,
   updateProjectContext,
   type Conversation,
   type Message,
   type Project,
+  type StoredFileMeta,
 } from "@/lib/db";
+import { CREATE_XLSX_TOOL, MAX_TOOL_STEPS, XLSX_GUIDANCE, runCreateXlsx } from "@/lib/xlsx/tool";
 import { requestPersistence } from "@/lib/persist";
 
 const fmt = (n: number) => n.toLocaleString("uk-UA");
+const fmtSize = (bytes: number) =>
+  bytes < 1024 ? `${bytes} Б` : `${Math.round(bytes / 1024)} КБ`;
 
 export default function ChatPage() {
   const router = useRouter();
@@ -147,6 +161,22 @@ export default function ChatPage() {
     abortRef.current?.abort();
   }
 
+  async function downloadFile(file: StoredFileMeta) {
+    const blob = await getFileBlob(file.id);
+    if (!blob) {
+      setError("Файл більше недоступний. Попросіть створити його знову.");
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
   async function send(event?: FormEvent<HTMLFormElement>) {
     event?.preventDefault();
     const text = draft.trim();
@@ -178,6 +208,7 @@ export default function ChatPage() {
           await updateConversationSummary(conv.id, summary, split.cutoffAt);
           conv = { ...conv, summary, summaryCutoff: split.cutoffAt };
           setActiveConv(conv);
+          setStatus(null);
         }
       }
 
@@ -187,32 +218,76 @@ export default function ChatPage() {
       setMessages(visible);
 
       const cutoff = conv.summaryCutoff ?? 0;
-      const history = visible.filter((m) => m.createdAt > cutoff);
+      const apiMessages: ApiMessage[] = toTurns(visible.filter((m) => m.createdAt > cutoff));
+      const system: SystemBlock[] = [
+        { type: "text", text: XLSX_GUIDANCE },
+        ...buildSystem(project, conv.summary ?? null),
+      ];
 
       const controller = new AbortController();
       abortRef.current = controller;
-      const captured: { usage?: Usage } = {};
-      let full = "";
-      setStatus(null);
+      let fullText = "";
+      let usage: Usage | undefined;
+      const produced: { name: string; blob: Blob }[] = [];
       setStreamText("");
 
-      for await (const chunk of streamMessage({
-        apiKey,
-        model,
-        system: buildSystem(project, conv.summary ?? null),
-        messages: toTurns(history),
-        signal: controller.signal,
-        onUsage: (u) => {
-          captured.usage = u;
-        },
-      })) {
-        full += chunk;
-        setStreamText(full);
-      }
-      setStreamText(null);
+      // Цикл ходів: якщо модель викликає create_xlsx, застосунок створює файл і повертає результат.
+      for (let step = 0; ; step++) {
+        let turn: Extract<TurnEvent, { type: "done" }> | null = null;
+        for await (const ev of streamTurn({
+          apiKey,
+          model,
+          system,
+          messages: apiMessages,
+          tools: [CREATE_XLSX_TOOL],
+          signal: controller.signal,
+        })) {
+          if (ev.type === "text") {
+            fullText += ev.text;
+            setStreamText(fullText);
+          } else {
+            turn = ev;
+          }
+        }
+        if (!turn) break; // перервано користувачем
 
-      if (full) {
-        const reply = await addMessage(conv.id, "assistant", full, captured.usage);
+        usage = turn.usage;
+        const toolUses = turn.content.filter(
+          (block): block is Extract<ContentBlock, { type: "tool_use" }> => block.type === "tool_use"
+        );
+        if (turn.stopReason !== "tool_use" || toolUses.length === 0 || step >= MAX_TOOL_STEPS) break;
+
+        apiMessages.push({ role: "assistant", content: turn.content });
+        setStatus("Створюємо файл…");
+        const results: ContentBlock[] = [];
+        for (const tool of toolUses) {
+          const run = await runCreateXlsx(tool.input);
+          if (run.ok) {
+            produced.push({ name: run.name, blob: run.blob });
+            results.push({ type: "tool_result", tool_use_id: tool.id, content: run.summary });
+          } else {
+            results.push({
+              type: "tool_result",
+              tool_use_id: tool.id,
+              content: run.error,
+              is_error: true,
+            });
+          }
+        }
+        apiMessages.push({ role: "user", content: results });
+        setStatus(null);
+      }
+
+      setStreamText(null);
+      setStatus(null);
+
+      const replyText =
+        fullText.trim() ||
+        (produced.length > 0 ? `Створено файл: ${produced.map((f) => f.name).join(", ")}` : "");
+      if (replyText) {
+        const files: StoredFileMeta[] = [];
+        for (const f of produced) files.push(await saveFile(f.name, f.blob));
+        const reply = await addMessage(conv.id, "assistant", replyText, usage, files);
         setMessages((prev) => [...prev, reply]);
       }
       await touchConversation(conv.id);
@@ -353,6 +428,21 @@ export default function ChatPage() {
           ) : (
             <div key={m.id} className="msg-assistant">
               {m.content}
+              {m.files && m.files.length > 0 && (
+                <div className="file-list">
+                  {m.files.map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      className="file-card"
+                      onClick={() => void downloadFile(f)}
+                    >
+                      <span className="file-name">{f.name}</span>
+                      <span className="file-meta">Excel · {fmtSize(f.size)}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )
         )}

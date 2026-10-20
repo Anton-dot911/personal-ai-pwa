@@ -38,3 +38,15 @@ Service worker реєструється лише у production-збірці, т�
 - Модель за замовчуванням задана в `lib/config.ts`.
 - Контекст розмови це вся її історія. Керування контекстом з'явиться на етапі 2.
 - Проєктів ще немає. Вони з'являться на етапі 2.
+
+## Перевірка рушія Excel (етап 3a.1)
+
+Опис зразка витягується з xlsx у JSON, а потім рушій збирає файл назад. Порівняння зі зразком має показати 41 з 41 перевірок.
+
+```bash
+python3 scripts/xlsx_extract_spec.py зразок.xlsx lib/xlsx/examples/suppliers.spec.json
+npx tsx scripts/xlsx-roundtrip.ts вихід.xlsx
+python3 scripts/xlsx_compare.py зразок.xlsx вихід.xlsx
+```
+
+Для запуску скриптів потрібен Python з openpyxl і `npm install`.

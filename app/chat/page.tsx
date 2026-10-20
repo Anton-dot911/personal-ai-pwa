@@ -3,15 +3,17 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import {
+  listModels,
   streamTurn,
   toTurns,
   type ApiMessage,
   type ContentBlock,
+  type ModelInfo,
   type SystemBlock,
   type TurnEvent,
   type Usage,
 } from "@/lib/anthropic";
-import { COMPACT_THRESHOLD_TOKENS } from "@/lib/config";
+import { COMPACT_THRESHOLD_TOKENS, DEFAULT_MODEL } from "@/lib/config";
 import { buildSystem, compactConversation, contextSize, splitForCompaction } from "@/lib/context";
 import {
   addMessage,
@@ -20,10 +22,10 @@ import {
   getApiKey,
   getFileBlob,
   getMessages,
-  getModel,
   listConversations,
   listProjects,
   saveFile,
+  setConversationModel,
   touchConversation,
   updateConversationSummary,
   updateProjectContext,
@@ -55,6 +57,9 @@ export default function ChatPage() {
   const [listOpen, setListOpen] = useState(false);
   const [contextDraft, setContextDraft] = useState("");
   const [newProjectName, setNewProjectName] = useState("");
+  const [models, setModels] = useState<ModelInfo[]>([]);
+  const [modelsError, setModelsError] = useState<string | null>(null);
+  const [newChatModel, setNewChatModel] = useState<string>(DEFAULT_MODEL);
 
   const abortRef = useRef<AbortController | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -63,6 +68,13 @@ export default function ChatPage() {
   const lastUsage: Usage | undefined = [...messages]
     .reverse()
     .find((m) => m.role === "assistant" && m.usage)?.usage;
+  // Модель поточної розмови, а для нової розмови та її вибір на початку.
+  // Стара розмова без збереженої моделі використовує модель за замовчуванням, як і під час запиту.
+  const currentModel = activeConv ? activeConv.model ?? DEFAULT_MODEL : newChatModel;
+  const modelOptions: ModelInfo[] = (models.length > 0 ? models : []).slice();
+  if (!modelOptions.some((m) => m.id === currentModel)) {
+    modelOptions.unshift({ id: currentModel, displayName: currentModel });
+  }
 
   useEffect(() => {
     void requestPersistence();
@@ -102,6 +114,22 @@ export default function ChatPage() {
   }, [router]);
 
   useEffect(() => {
+    if (!apiKey) return;
+    listModels(apiKey)
+      .then((list) => {
+        setModels(list);
+        setModelsError(null);
+      })
+      .catch((err) =>
+        setModelsError(
+          err instanceof Error
+            ? `${err.message} Доступна модель за замовчуванням.`
+            : "Не вдалося отримати список моделей."
+        )
+      );
+  }, [apiKey]);
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ block: "end" });
   }, [messages, streamText, status]);
 
@@ -136,6 +164,18 @@ export default function ChatPage() {
     setMessages([]);
     setError(null);
     setListOpen(false);
+  }
+
+  // Для поточної розмови модель зберігається в ній. Для нової розмови запам'ятовується вибір.
+  async function changeModel(id: string) {
+    if (busy) return;
+    if (!activeConv) {
+      setNewChatModel(id);
+      return;
+    }
+    await setConversationModel(activeConv.id, id);
+    setActiveConv({ ...activeConv, model: id });
+    await refreshConversations(selectedProjectId);
   }
 
   async function createProjectHandler() {
@@ -187,12 +227,12 @@ export default function ChatPage() {
     setDraft("");
 
     try {
-      const model = await getModel();
       let conv = activeConv;
       if (!conv) {
-        conv = await createConversation(text.slice(0, 60), selectedProjectId);
+        conv = await createConversation(text.slice(0, 60), selectedProjectId, currentModel);
         setActiveConv(conv);
       }
+      const model = conv.model ?? DEFAULT_MODEL;
 
       // Стиснення: коли розмір контексту з останньої відповіді перевищує поріг.
       if (contextSize(lastUsage) > COMPACT_THRESHOLD_TOKENS) {
@@ -333,6 +373,26 @@ export default function ChatPage() {
           Нова
         </button>
       </header>
+
+      <div className="model-row">
+        <label className="muted" htmlFor="model">
+          Модель
+        </label>
+        <select
+          id="model"
+          className="inset model-select"
+          value={currentModel}
+          onChange={(e) => void changeModel(e.target.value)}
+          disabled={busy}
+        >
+          {modelOptions.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.displayName}
+            </option>
+          ))}
+        </select>
+      </div>
+      {modelsError && <p className="muted">{modelsError}</p>}
 
       {lastUsage && (
         <p className="meter" aria-live="polite">

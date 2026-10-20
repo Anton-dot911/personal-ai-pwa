@@ -18,6 +18,7 @@ export interface Conversation {
   title: string;
   summary?: string;
   summaryCutoff?: number;
+  model?: string;
   createdAt: number;
   updatedAt: number;
 }
@@ -137,10 +138,18 @@ export async function listConversations(projectId?: string | null): Promise<Conv
 
 export async function createConversation(
   title: string,
-  projectId: string | null = null
+  projectId: string | null = null,
+  model?: string
 ): Promise<Conversation> {
   const now = Date.now();
-  const conversation: Conversation = { id: newId(), projectId, title, createdAt: now, updatedAt: now };
+  const conversation: Conversation = {
+    id: newId(),
+    projectId,
+    title,
+    model,
+    createdAt: now,
+    updatedAt: now,
+  };
   await (await getDB()).put("conversations", conversation);
   return conversation;
 }
@@ -200,4 +209,13 @@ export async function getFileBlob(id: string): Promise<Blob | null> {
 export async function getMessages(conversationId: string): Promise<Message[]> {
   const all = await (await getDB()).getAllFromIndex("messages", "by-conversation", conversationId);
   return all.sort((a, b) => a.createdAt - b.createdAt);
+}
+
+// Модель зберігається окремо для кожної розмови.
+export async function setConversationModel(id: string, model: string): Promise<void> {
+  const db = await getDB();
+  const conversation = await db.get("conversations", id);
+  if (conversation) {
+    await db.put("conversations", { ...conversation, model });
+  }
 }

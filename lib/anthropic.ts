@@ -103,6 +103,41 @@ export async function validateApiKey(apiKey: string): Promise<void> {
   if (!res.ok) throw new ApiError(explainStatus(res.status));
 }
 
+export interface ModelInfo {
+  id: string;
+  displayName: string;
+}
+
+// Моделі, доступні для цього ключа. Сторінки з'єднуються курсором after_id.
+export async function listModels(apiKey: string): Promise<ModelInfo[]> {
+  const models: ModelInfo[] = [];
+  let afterId: string | null = null;
+  for (let page = 0; page < 5; page++) {
+    const query = afterId ? `&after_id=${encodeURIComponent(afterId)}` : "";
+    let res: Response;
+    try {
+      res = await fetch(`${API_URL}/models?limit=100${query}`, { headers: headers(apiKey) });
+    } catch {
+      throw new ApiError(NETWORK_ERROR);
+    }
+    if (!res.ok) throw new ApiError(explainStatus(res.status));
+
+    const data = (await res.json()) as {
+      data?: { id: string; display_name?: string }[];
+      has_more?: boolean;
+      last_id?: string | null;
+    };
+    for (const m of data.data ?? []) {
+      if (!models.some((x) => x.id === m.id)) {
+        models.push({ id: m.id, displayName: m.display_name ?? m.id });
+      }
+    }
+    if (!data.has_more || !data.last_id) break;
+    afterId = data.last_id;
+  }
+  return models;
+}
+
 interface StreamEvent {
   type: string;
   index?: number;

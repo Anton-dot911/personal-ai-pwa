@@ -1,1 +1,4895 @@
-
+{
+ "filename": "suppliers_template.xlsx",
+ "sheets": [
+  {
+   "name": "Довідка",
+   "font": {
+    "name": "Calibri",
+    "size": 11.0
+   },
+   "columns": [
+    {
+     "width": 30.0,
+     "headerStyle": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 14.0
+     },
+     "cellStyle": {
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {},
+    {
+     "width": 12.0
+    },
+    {},
+    {
+     "width": 14.0
+    },
+    {
+     "width": 12.0
+    },
+    {},
+    {},
+    {}
+   ],
+   "rows": [
+    [
+     "Таблиця постачальників для логістичного модуля",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Заповніть координати й графіки. Усе інше (назви, рейси, типова сировина) вже взято з вашого вересневого плану.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "ЩО ЗАПОВНЮВАТИ",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Аркуш «Постачальники»: темно-сині заголовки з жовтими клітинками це поля для вводу, сірі заголовки це інформація з плану.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Широта, Довгота, Робочі дні, Завантаження з/до, Час завантаження, Поворотні баки: потрібні для розрахунку маршрутів.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Аркуш «Можливі_дублікати»: для кожної пари оберіть Так, Ні або Не знаю в останній колонці.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Аркуш «Відповідність_назв»: лише для перегляду, яку назву з плану віднесено до якого постачальника.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "ФОРМАТ КООРДИНАТ",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Десяткові градуси, система WGS 84, спершу широта, потім довгота, у двох окремих колонках.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Широта для України між 44 і 53,5, довгота між 22 і 41 (це приблизні межі для перевірки, не точні кордони).",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Вказуйте точку завантаження (ворота ферми, склад), а не юридичну адресу. Достатньо 4-5 знаків після коми.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Як отримати з телефона: у Google Maps довго натисніть на точці, координати з'являться зверху; в Apple Maps поставте шпильку.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Якщо Excel не приймає крапку, вводьте кому: 49,9600. Якщо не приймає кому, вводьте крапку.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "ПРИКЛАД РЯДКА (умовний, у таблицю не вносити)",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Назва",
+     "Адреса або орієнтир",
+     "Широта",
+     "Довгота",
+     "Робочі дні",
+     "Завантаження з",
+     "Завантаження до",
+     "Час завантаження, хв",
+     "Поворотні баки"
+    ],
+    [
+     "Приклад ТОВ",
+     "с. Приклад, ворота ферми",
+     49.96,
+     24.61,
+     "Пн–Сб",
+     "06:00",
+     "18:00",
+     40,
+     "Так"
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "База заводу (місце, звідки й куди їздять авто)",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Широта бази",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Довгота бази",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "У плані маршрути починаються й закінчуються словом «Буськ». Припускаю, що це база, але точку підтверджує технолог.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "ХІД ЗАПОВНЕННЯ",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Постачальників у таблиці",
+     {
+      "formula": "COUNTA(Постачальники!B2:B121)",
+      "result": 71
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "З правильними координатами",
+     {
+      "formula": "COUNTIF(Постачальники!Q2:Q121,\"ок\")",
+      "result": 0
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Без координат",
+     {
+      "formula": "COUNTIF(Постачальники!Q2:Q121,\"немає координат\")+COUNTIF(Постачальники!Q2:Q121,\"бракує однієї\")",
+      "result": 71
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Координати потребують перевірки",
+     {
+      "formula": "COUNTIF(Постачальники!Q2:Q121,\"перевірте\")",
+      "result": 0
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Пар у «Можливі_дублікати» без відповіді",
+     {
+      "formula": "COUNTA(Можливі_дублікати!A2:A11)-COUNTA(Можливі_дублікати!F2:F11)",
+      "result": 10
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "ДЖЕРЕЛО Й ПРИПУЩЕННЯ",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Список взято з колонки «Клієнт» аркуша «Лист 4» файлу «Рецепти_Жовтень_2026.xlsx» (поставки за 1-30.09). Склад маршруту отримано розбиттям за дефісом.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Назви об'єднано автоматично лише коли вони різняться регістром, пробілами чи дужками. Решту схожих назв я не об'єднував, а виніс на перевірку.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  «Типова сировина», «Типова вага рейсу» і «Стан» порахував лише за прямими рейсами з однією зупинкою, бо для складних маршрутів вага по зупинках невідома.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "•  Стан береться з колонки «Примітки» плану (свіжа, охолоджена, заморожена). Порожнє значення вважав свіжою сировиною.",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ]
+   ],
+   "cellStyles": [
+    {
+     "ref": "A3",
+     "style": {}
+    },
+    {
+     "ref": "A4",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "A9",
+     "style": {}
+    },
+    {
+     "ref": "A10",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "A16",
+     "style": {}
+    },
+    {
+     "ref": "A17",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "A18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "B18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "C18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "D18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "E18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "F18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "G18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "H18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "I18",
+     "style": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "A19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "B19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "C19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "numFmt": "0.00000",
+      "wrap": true
+     }
+    },
+    {
+     "ref": "D19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "numFmt": "0.00000",
+      "wrap": true
+     }
+    },
+    {
+     "ref": "E19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "F19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "G19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "H19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "I19",
+     "style": {
+      "fontName": "Arial",
+      "size": 10.0,
+      "wrap": true
+     }
+    },
+    {
+     "ref": "A20",
+     "style": {}
+    },
+    {
+     "ref": "A21",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "B22",
+     "style": {
+      "fill": "FFFFF6D6",
+      "fontName": "Arial",
+      "size": 10.0,
+      "numFmt": "0.00000"
+     }
+    },
+    {
+     "ref": "B23",
+     "style": {
+      "fill": "FFFFF6D6",
+      "fontName": "Arial",
+      "size": 10.0,
+      "numFmt": "0.00000"
+     }
+    },
+    {
+     "ref": "A25",
+     "style": {}
+    },
+    {
+     "ref": "A26",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "B27",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "B28",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "B29",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "B30",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "B31",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    },
+    {
+     "ref": "A32",
+     "style": {}
+    },
+    {
+     "ref": "A33",
+     "style": {
+      "bold": true,
+      "fontName": "Arial",
+      "size": 10.0
+     }
+    }
+   ]
+  },
+  {
+   "name": "Постачальники",
+   "font": {
+    "name": "Arial",
+    "size": 10.0
+   },
+   "columns": [
+    {
+     "width": 5.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0"
+     }
+    },
+    {
+     "width": 34.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6"
+     },
+     "role": "input"
+    },
+    {
+     "width": 28.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "width": 10.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0"
+     }
+    },
+    {
+     "width": 30.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "width": 12.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "numFmt": "#,##0"
+     }
+    },
+    {
+     "width": 16.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "width": 12.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6",
+      "numFmt": "0.00000"
+     },
+     "role": "input"
+    },
+    {
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6",
+      "numFmt": "0.00000"
+     },
+     "role": "input"
+    },
+    {
+     "width": 30.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6",
+      "wrap": true
+     },
+     "role": "input"
+    },
+    {
+     "width": 16.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6"
+     },
+     "role": "input"
+    },
+    {
+     "width": 11.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6",
+      "numFmt": "hh:mm"
+     },
+     "role": "input"
+    },
+    {
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6",
+      "numFmt": "hh:mm"
+     },
+     "role": "input"
+    },
+    {
+     "width": 12.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6"
+     },
+     "role": "input"
+    },
+    {
+     "width": 10.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6"
+     },
+     "role": "input"
+    },
+    {
+     "width": 26.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6",
+      "wrap": true
+     },
+     "role": "input"
+    },
+    {
+     "width": 16.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0"
+     }
+    },
+    {
+     "width": 11.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0"
+     }
+    }
+   ],
+   "rows": [
+    [
+     "№",
+     "Назва (одна на постачальника)",
+     "Інші написання в плані",
+     "Рейсів у вересні",
+     "Типова сировина (за планом)",
+     "Типова вага рейсу, кг",
+     "Стан сировини (за планом)",
+     "Широта",
+     "Довгота",
+     "Адреса або орієнтир",
+     "Робочі дні",
+     "Завантаження з",
+     "Завантаження до",
+     "Час завантаження, хв",
+     "Поворотні баки",
+     "Примітка",
+     "Перевірка координат",
+     "Заповнено полів"
+    ],
+    [
+     1,
+     "К-Агроінвест трейд",
+     null,
+     73,
+     "Кишка куряча; Перо; Кров",
+     8300,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B2=\"\",\"\",IF(AND(H2=\"\",I2=\"\"),\"немає координат\",IF(OR(H2=\"\",I2=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H2),ISNUMBER(I2),H2>=44,H2<=53.5,I2>=22,I2<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B2=\"\",\"\",COUNTA(H2:I2,K2:N2)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     2,
+     "Агроль",
+     null,
+     56,
+     "Кишка куряча; Перо; Кров",
+     12000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B3=\"\",\"\",IF(AND(H3=\"\",I3=\"\"),\"немає координат\",IF(OR(H3=\"\",I3=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H3),ISNUMBER(I3),H3>=44,H3<=53.5,I3>=22,I3<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B3=\"\",\"\",COUNTA(H3:I3,K3:N3)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     3,
+     "Лемберг Міт",
+     "Лемберг міт",
+     52,
+     "шкіра свинна; Кістка свина",
+     10000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B4=\"\",\"\",IF(AND(H4=\"\",I4=\"\"),\"немає координат\",IF(OR(H4=\"\",I4=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H4),ISNUMBER(I4),H4>=44,H4<=53.5,I4>=22,I4<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B4=\"\",\"\",COUNTA(H4:I4,K4:N4)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     4,
+     "Західне курча",
+     "Західне Курча",
+     27,
+     "Кишка куряча; Перо; Кров",
+     6800,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B5=\"\",\"\",IF(AND(H5=\"\",I5=\"\"),\"немає координат\",IF(OR(H5=\"\",I5=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H5),ISNUMBER(I5),H5>=44,H5<=53.5,I5>=22,I5<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B5=\"\",\"\",COUNTA(H5:I5,K5:N5)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     5,
+     "Хінкель когут",
+     "Хінкель Когут",
+     26,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B6=\"\",\"\",IF(AND(H6=\"\",I6=\"\"),\"немає координат\",IF(OR(H6=\"\",I6=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H6),ISNUMBER(I6),H6>=44,H6<=53.5,I6>=22,I6<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B6=\"\",\"\",COUNTA(H6:I6,K6:N6)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     6,
+     "Плай",
+     null,
+     26,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B7=\"\",\"\",IF(AND(H7=\"\",I7=\"\"),\"немає координат\",IF(OR(H7=\"\",I7=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H7),ISNUMBER(I7),H7>=44,H7<=53.5,I7>=22,I7<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B7=\"\",\"\",COUNTA(H7:I7,K7:N7)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     7,
+     "Мясопром",
+     null,
+     23,
+     "Кишка св. очищена/ морожена",
+     2000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B8=\"\",\"\",IF(AND(H8=\"\",I8=\"\"),\"немає координат\",IF(OR(H8=\"\",I8=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H8),ISNUMBER(I8),H8>=44,H8<=53.5,I8>=22,I8<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B8=\"\",\"\",COUNTA(H8:I8,K8:N8)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     8,
+     "Наша птиця",
+     "Наша Птиця",
+     23,
+     "Кишка куряча; Перо; Кров",
+     8500,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B9=\"\",\"\",IF(AND(H9=\"\",I9=\"\"),\"немає координат\",IF(OR(H9=\"\",I9=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H9),ISNUMBER(I9),H9>=44,H9<=53.5,I9>=22,I9<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B9=\"\",\"\",COUNTA(H9:I9,K9:N9)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     9,
+     "Галферміт",
+     null,
+     22,
+     "Кишка куряча; Перо; Кров",
+     5400,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B10=\"\",\"\",IF(AND(H10=\"\",I10=\"\"),\"немає координат\",IF(OR(H10=\"\",I10=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H10),ISNUMBER(I10),H10>=44,H10<=53.5,I10>=22,I10<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B10=\"\",\"\",COUNTA(H10:I10,K10:N10)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     10,
+     "УПГ інвест",
+     null,
+     21,
+     "Кістка індика; Перо; Кишка індика",
+     21900,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B11=\"\",\"\",IF(AND(H11=\"\",I11=\"\"),\"немає координат\",IF(OR(H11=\"\",I11=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H11),ISNUMBER(I11),H11>=44,H11<=53.5,I11>=22,I11<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B11=\"\",\"\",COUNTA(H11:I11,K11:N11)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     11,
+     "Екзім Фут",
+     null,
+     21,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B12=\"\",\"\",IF(AND(H12=\"\",I12=\"\"),\"немає координат\",IF(OR(H12=\"\",I12=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H12),ISNUMBER(I12),H12>=44,H12<=53.5,I12>=22,I12<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B12=\"\",\"\",COUNTA(H12:I12,K12:N12)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     12,
+     "ЗборівАгроТрейд",
+     "Зборів АгроТрейд; Зборів Агротрейд; Зборів Агро Трейд",
+     19,
+     "Кишка куряча; Перо; Кров",
+     13400,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B13=\"\",\"\",IF(AND(H13=\"\",I13=\"\"),\"немає координат\",IF(OR(H13=\"\",I13=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H13),ISNUMBER(I13),H13>=44,H13<=53.5,I13>=22,I13<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B13=\"\",\"\",COUNTA(H13:I13,K13:N13)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     13,
+     "Луцька Аграрна Компанія",
+     "Луцька Аграрна компанія",
+     17,
+     "Кишка куряча; Падіж",
+     10000,
+     "різна (охолоджена 8, свіжа 5, заморожена 4)",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B14=\"\",\"\",IF(AND(H14=\"\",I14=\"\"),\"немає координат\",IF(OR(H14=\"\",I14=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H14),ISNUMBER(I14),H14>=44,H14<=53.5,I14>=22,I14<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B14=\"\",\"\",COUNTA(H14:I14,K14:N14)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     14,
+     "Білий Берег",
+     null,
+     16,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B15=\"\",\"\",IF(AND(H15=\"\",I15=\"\"),\"немає координат\",IF(OR(H15=\"\",I15=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H15),ISNUMBER(I15),H15>=44,H15<=53.5,I15>=22,I15<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B15=\"\",\"\",COUNTA(H15:I15,K15:N15)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     15,
+     "Губин",
+     null,
+     13,
+     "Кишка куряча; Перо; Падіж",
+     10000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B16=\"\",\"\",IF(AND(H16=\"\",I16=\"\"),\"немає координат\",IF(OR(H16=\"\",I16=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H16),ISNUMBER(I16),H16>=44,H16<=53.5,I16>=22,I16<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B16=\"\",\"\",COUNTA(H16:I16,K16:N16)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     16,
+     "Гарбузівське Курча",
+     null,
+     13,
+     "Перо; Падіж; Кишка індика",
+     1700,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B17=\"\",\"\",IF(AND(H17=\"\",I17=\"\"),\"немає координат\",IF(OR(H17=\"\",I17=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H17),ISNUMBER(I17),H17>=44,H17<=53.5,I17>=22,I17<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B17=\"\",\"\",COUNTA(H17:I17,K17:N17)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     17,
+     "ФОП Мацула",
+     null,
+     13,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B18=\"\",\"\",IF(AND(H18=\"\",I18=\"\"),\"немає координат\",IF(OR(H18=\"\",I18=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H18),ISNUMBER(I18),H18>=44,H18<=53.5,I18>=22,I18<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B18=\"\",\"\",COUNTA(H18:I18,K18:N18)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     18,
+     "Єврокомерс",
+     null,
+     13,
+     "Кишка св. очищена/ морожена; Кістка свина; шкіра свинна",
+     0,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B19=\"\",\"\",IF(AND(H19=\"\",I19=\"\"),\"немає координат\",IF(OR(H19=\"\",I19=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H19),ISNUMBER(I19),H19>=44,H19<=53.5,I19>=22,I19<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B19=\"\",\"\",COUNTA(H19:I19,K19:N19)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     19,
+     "Рогатин Мк",
+     "РогатинМК",
+     13,
+     "Кишка св. очищена/ морожена; Кістка свина; шкіра свинна",
+     6000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B20=\"\",\"\",IF(AND(H20=\"\",I20=\"\"),\"немає координат\",IF(OR(H20=\"\",I20=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H20),ISNUMBER(I20),H20>=44,H20<=53.5,I20>=22,I20<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B20=\"\",\"\",COUNTA(H20:I20,K20:N20)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     20,
+     "Євровік Сколе",
+     null,
+     13,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B21=\"\",\"\",IF(AND(H21=\"\",I21=\"\"),\"немає координат\",IF(OR(H21=\"\",I21=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H21),ISNUMBER(I21),H21>=44,H21<=53.5,I21>=22,I21<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B21=\"\",\"\",COUNTA(H21:I21,K21:N21)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     21,
+     "Агротем",
+     null,
+     13,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B22=\"\",\"\",IF(AND(H22=\"\",I22=\"\"),\"немає координат\",IF(OR(H22=\"\",I22=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H22),ISNUMBER(I22),H22>=44,H22<=53.5,I22>=22,I22<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B22=\"\",\"\",COUNTA(H22:I22,K22:N22)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     22,
+     "Євровік Миколаів",
+     null,
+     13,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B23=\"\",\"\",IF(AND(H23=\"\",I23=\"\"),\"немає координат\",IF(OR(H23=\"\",I23=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H23),ISNUMBER(I23),H23>=44,H23<=53.5,I23>=22,I23<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B23=\"\",\"\",COUNTA(H23:I23,K23:N23)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     23,
+     "Мясник Прикарпаття",
+     null,
+     12,
+     "Перо; Кров; Кишка індика",
+     3900,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B24=\"\",\"\",IF(AND(H24=\"\",I24=\"\"),\"немає координат\",IF(OR(H24=\"\",I24=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H24),ISNUMBER(I24),H24>=44,H24<=53.5,I24>=22,I24<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B24=\"\",\"\",COUNTA(H24:I24,K24:N24)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     24,
+     "ГлиняниАгро",
+     null,
+     9,
+     "Кишка св. очищена/ морожена; Кістка свина",
+     3700,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B25=\"\",\"\",IF(AND(H25=\"\",I25=\"\"),\"немає координат\",IF(OR(H25=\"\",I25=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H25),ISNUMBER(I25),H25>=44,H25<=53.5,I25>=22,I25<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B25=\"\",\"\",COUNTA(H25:I25,K25:N25)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     25,
+     "Пигичка",
+     null,
+     8,
+     "Кістка свина",
+     3000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B26=\"\",\"\",IF(AND(H26=\"\",I26=\"\"),\"немає координат\",IF(OR(H26=\"\",I26=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H26),ISNUMBER(I26),H26>=44,H26<=53.5,I26>=22,I26<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B26=\"\",\"\",COUNTA(H26:I26,K26:N26)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     26,
+     "Родинна ковбаска",
+     "Родинна Ковбаска",
+     8,
+     "Кістка свина; Кишка св. очищена/ морожена; Повернення",
+     6000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B27=\"\",\"\",IF(AND(H27=\"\",I27=\"\"),\"немає координат\",IF(OR(H27=\"\",I27=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H27),ISNUMBER(I27),H27>=44,H27<=53.5,I27>=22,I27<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B27=\"\",\"\",COUNTA(H27:I27,K27:N27)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     27,
+     "ФОП Горецький",
+     null,
+     8,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B28=\"\",\"\",IF(AND(H28=\"\",I28=\"\"),\"немає координат\",IF(OR(H28=\"\",I28=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H28),ISNUMBER(I28),H28>=44,H28<=53.5,I28>=22,I28<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B28=\"\",\"\",COUNTA(H28:I28,K28:N28)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     28,
+     "ФОП Мацюк",
+     null,
+     8,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B29=\"\",\"\",IF(AND(H29=\"\",I29=\"\"),\"немає координат\",IF(OR(H29=\"\",I29=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H29),ISNUMBER(I29),H29>=44,H29<=53.5,I29>=22,I29<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B29=\"\",\"\",COUNTA(H29:I29,K29:N29)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     29,
+     "Старицький МК",
+     null,
+     8,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B30=\"\",\"\",IF(AND(H30=\"\",I30=\"\"),\"немає координат\",IF(OR(H30=\"\",I30=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H30),ISNUMBER(I30),H30>=44,H30<=53.5,I30>=22,I30<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B30=\"\",\"\",COUNTA(H30:I30,K30:N30)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     30,
+     "Авіс (Камянець Подільска філія)",
+     "Авіс(Камянець Подільска філія)",
+     8,
+     "Падіж",
+     7500,
+     "різна (охолоджена 4, свіжа 4)",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B31=\"\",\"\",IF(AND(H31=\"\",I31=\"\"),\"немає координат\",IF(OR(H31=\"\",I31=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H31),ISNUMBER(I31),H31>=44,H31<=53.5,I31>=22,I31<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B31=\"\",\"\",COUNTA(H31:I31,K31:N31)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     31,
+     "Дак Агро",
+     null,
+     8,
+     "Кишка куряча; Перо; Кров",
+     14700,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B32=\"\",\"\",IF(AND(H32=\"\",I32=\"\"),\"немає координат\",IF(OR(H32=\"\",I32=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H32),ISNUMBER(I32),H32>=44,H32<=53.5,I32>=22,I32<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B32=\"\",\"\",COUNTA(H32:I32,K32:N32)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     32,
+     "Случ Продукт",
+     null,
+     7,
+     "Кишка куряча; Перо; Кров",
+     14700,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B33=\"\",\"\",IF(AND(H33=\"\",I33=\"\"),\"немає координат\",IF(OR(H33=\"\",I33=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H33),ISNUMBER(I33),H33>=44,H33<=53.5,I33>=22,I33<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B33=\"\",\"\",COUNTA(H33:I33,K33:N33)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     33,
+     "Агроном центр",
+     null,
+     7,
+     "Кишка куряча; Перо; Кров",
+     11000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B34=\"\",\"\",IF(AND(H34=\"\",I34=\"\"),\"немає координат\",IF(OR(H34=\"\",I34=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H34),ISNUMBER(I34),H34>=44,H34<=53.5,I34>=22,I34<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B34=\"\",\"\",COUNTA(H34:I34,K34:N34)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     34,
+     "Агролайф Транс сервіс",
+     null,
+     6,
+     "Падіж",
+     3500,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B35=\"\",\"\",IF(AND(H35=\"\",I35=\"\"),\"немає координат\",IF(OR(H35=\"\",I35=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H35),ISNUMBER(I35),H35>=44,H35<=53.5,I35>=22,I35<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B35=\"\",\"\",COUNTA(H35:I35,K35:N35)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     35,
+     "Омега 3",
+     null,
+     6,
+     "Кишка куряча; Перо; Кров",
+     15650,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B36=\"\",\"\",IF(AND(H36=\"\",I36=\"\"),\"немає координат\",IF(OR(H36=\"\",I36=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H36),ISNUMBER(I36),H36>=44,H36<=53.5,I36>=22,I36<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B36=\"\",\"\",COUNTA(H36:I36,K36:N36)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     36,
+     "Мясна Хатка",
+     null,
+     5,
+     "Кістка свина; шкіра свинна",
+     1400,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B37=\"\",\"\",IF(AND(H37=\"\",I37=\"\"),\"немає координат\",IF(OR(H37=\"\",I37=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H37),ISNUMBER(I37),H37>=44,H37<=53.5,I37>=22,I37<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B37=\"\",\"\",COUNTA(H37:I37,K37:N37)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     37,
+     "ФОП Сташків",
+     null,
+     5,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B38=\"\",\"\",IF(AND(H38=\"\",I38=\"\"),\"немає координат\",IF(OR(H38=\"\",I38=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H38),ISNUMBER(I38),H38>=44,H38<=53.5,I38>=22,I38<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B38=\"\",\"\",COUNTA(H38:I38,K38:N38)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     38,
+     "Старицький",
+     null,
+     5,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B39=\"\",\"\",IF(AND(H39=\"\",I39=\"\"),\"немає координат\",IF(OR(H39=\"\",I39=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H39),ISNUMBER(I39),H39>=44,H39<=53.5,I39>=22,I39<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B39=\"\",\"\",COUNTA(H39:I39,K39:N39)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     39,
+     "Крупець",
+     null,
+     5,
+     "Падіж",
+     3000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B40=\"\",\"\",IF(AND(H40=\"\",I40=\"\"),\"немає координат\",IF(OR(H40=\"\",I40=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H40),ISNUMBER(I40),H40>=44,H40<=53.5,I40>=22,I40<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B40=\"\",\"\",COUNTA(H40:I40,K40:N40)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     40,
+     "Ексім Фут",
+     null,
+     5,
+     null,
+     null,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B41=\"\",\"\",IF(AND(H41=\"\",I41=\"\"),\"немає координат\",IF(OR(H41=\"\",I41=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H41),ISNUMBER(I41),H41>=44,H41<=53.5,I41>=22,I41<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B41=\"\",\"\",COUNTA(H41:I41,K41:N41)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     41,
+     "Мясний ДІМ",
+     null,
+     5,
+     "Кишка куряча; Перо; Кров",
+     9800,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B42=\"\",\"\",IF(AND(H42=\"\",I42=\"\"),\"немає координат\",IF(OR(H42=\"\",I42=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H42),ISNUMBER(I42),H42>=44,H42<=53.5,I42>=22,I42<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B42=\"\",\"\",COUNTA(H42:I42,K42:N42)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     42,
+     "Сільпо",
+     null,
+     5,
+     "Кістка свина; шкіра свинна",
+     10000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B43=\"\",\"\",IF(AND(H43=\"\",I43=\"\"),\"немає координат\",IF(OR(H43=\"\",I43=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H43),ISNUMBER(I43),H43>=44,H43<=53.5,I43>=22,I43<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B43=\"\",\"\",COUNTA(H43:I43,K43:N43)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     43,
+     "Галицька Свіжина",
+     "Галицька свіжина",
+     5,
+     "Поверення; субпродукти/ зачистка; Кістка свина",
+     9000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B44=\"\",\"\",IF(AND(H44=\"\",I44=\"\"),\"немає координат\",IF(OR(H44=\"\",I44=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H44),ISNUMBER(I44),H44>=44,H44<=53.5,I44>=22,I44<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B44=\"\",\"\",COUNTA(H44:I44,K44:N44)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     44,
+     "Броди Агро Продукт",
+     "Броди Агро продукт",
+     5,
+     "Падіж",
+     500,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B45=\"\",\"\",IF(AND(H45=\"\",I45=\"\"),\"немає координат\",IF(OR(H45=\"\",I45=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H45),ISNUMBER(I45),H45>=44,H45<=53.5,I45>=22,I45<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B45=\"\",\"\",COUNTA(H45:I45,K45:N45)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     45,
+     "Авіс Рогатин МК",
+     null,
+     4,
+     "Падіж",
+     1600,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B46=\"\",\"\",IF(AND(H46=\"\",I46=\"\"),\"немає координат\",IF(OR(H46=\"\",I46=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H46),ISNUMBER(I46),H46>=44,H46<=53.5,I46>=22,I46<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B46=\"\",\"\",COUNTA(H46:I46,K46:N46)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     46,
+     "ФОП Гелей",
+     null,
+     4,
+     "Кістка свина",
+     1000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B47=\"\",\"\",IF(AND(H47=\"\",I47=\"\"),\"немає координат\",IF(OR(H47=\"\",I47=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H47),ISNUMBER(I47),H47>=44,H47<=53.5,I47>=22,I47<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B47=\"\",\"\",COUNTA(H47:I47,K47:N47)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     47,
+     "Куликів",
+     null,
+     4,
+     "Кишка св. очищена/ морожена",
+     4500,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B48=\"\",\"\",IF(AND(H48=\"\",I48=\"\"),\"немає координат\",IF(OR(H48=\"\",I48=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H48),ISNUMBER(I48),H48>=44,H48<=53.5,I48>=22,I48<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B48=\"\",\"\",COUNTA(H48:I48,K48:N48)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     48,
+     "Ексім",
+     null,
+     4,
+     "Кістка свина",
+     13500,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B49=\"\",\"\",IF(AND(H49=\"\",I49=\"\"),\"немає координат\",IF(OR(H49=\"\",I49=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H49),ISNUMBER(I49),H49>=44,H49<=53.5,I49>=22,I49<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B49=\"\",\"\",COUNTA(H49:I49,K49:N49)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     49,
+     "Юрмія",
+     null,
+     4,
+     "Кишка св. очищена/ морожена; Кістка свина; шкіра свинна",
+     9000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B50=\"\",\"\",IF(AND(H50=\"\",I50=\"\"),\"немає координат\",IF(OR(H50=\"\",I50=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H50),ISNUMBER(I50),H50>=44,H50<=53.5,I50>=22,I50<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B50=\"\",\"\",COUNTA(H50:I50,K50:N50)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     50,
+     "Агроінвест",
+     null,
+     4,
+     "Кістка свина; шкіра свинна",
+     8500,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B51=\"\",\"\",IF(AND(H51=\"\",I51=\"\"),\"немає координат\",IF(OR(H51=\"\",I51=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H51),ISNUMBER(I51),H51>=44,H51<=53.5,I51>=22,I51<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B51=\"\",\"\",COUNTA(H51:I51,K51:N51)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     51,
+     "ГощаМіт",
+     null,
+     4,
+     "Кишка св. очищена/ морожена; Кістка свина; шкіра свинна",
+     12900,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B52=\"\",\"\",IF(AND(H52=\"\",I52=\"\"),\"немає координат\",IF(OR(H52=\"\",I52=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H52),ISNUMBER(I52),H52>=44,H52<=53.5,I52>=22,I52<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B52=\"\",\"\",COUNTA(H52:I52,K52:N52)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     52,
+     "Термоптаха",
+     null,
+     4,
+     "Кишка куряча; Кров; Перо",
+     11400,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B53=\"\",\"\",IF(AND(H53=\"\",I53=\"\"),\"немає координат\",IF(OR(H53=\"\",I53=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H53),ISNUMBER(I53),H53>=44,H53<=53.5,I53>=22,I53<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B53=\"\",\"\",COUNTA(H53:I53,K53:N53)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     53,
+     "Жовква",
+     null,
+     4,
+     "Кістка свина; шкіра свинна",
+     4700,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B54=\"\",\"\",IF(AND(H54=\"\",I54=\"\"),\"немає координат\",IF(OR(H54=\"\",I54=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H54),ISNUMBER(I54),H54>=44,H54<=53.5,I54>=22,I54<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B54=\"\",\"\",COUNTA(H54:I54,K54:N54)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     54,
+     "ЗахідноУкраїнська",
+     null,
+     4,
+     "Кишка св. очищена/ морожена; Кістка свина; шкіра свинна",
+     9200,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B55=\"\",\"\",IF(AND(H55=\"\",I55=\"\"),\"немає координат\",IF(OR(H55=\"\",I55=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H55),ISNUMBER(I55),H55>=44,H55<=53.5,I55>=22,I55<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B55=\"\",\"\",COUNTA(H55:I55,K55:N55)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     55,
+     "Антонівський МК",
+     "АнтонівськийМК",
+     3,
+     "Кістка свина",
+     16700,
+     "різна (заморожена 2, свіжа 1)",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B56=\"\",\"\",IF(AND(H56=\"\",I56=\"\"),\"немає координат\",IF(OR(H56=\"\",I56=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H56),ISNUMBER(I56),H56>=44,H56<=53.5,I56>=22,I56<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B56=\"\",\"\",COUNTA(H56:I56,K56:N56)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     56,
+     "ЧікІнвест",
+     null,
+     3,
+     "Падіж",
+     1600,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B57=\"\",\"\",IF(AND(H57=\"\",I57=\"\"),\"немає координат\",IF(OR(H57=\"\",I57=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H57),ISNUMBER(I57),H57>=44,H57<=53.5,I57>=22,I57<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B57=\"\",\"\",COUNTA(H57:I57,K57:N57)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     57,
+     "Авіс Рогатин ПТФ",
+     null,
+     2,
+     "Падіж",
+     3300,
+     "різна (заморожена 1, свіжа 1)",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B58=\"\",\"\",IF(AND(H58=\"\",I58=\"\"),\"немає координат\",IF(OR(H58=\"\",I58=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H58),ISNUMBER(I58),H58>=44,H58<=53.5,I58>=22,I58<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B58=\"\",\"\",COUNTA(H58:I58,K58:N58)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     58,
+     "Ходорів МК",
+     null,
+     2,
+     "Кишка куряча; Перо; кишка свинна очищенна морожена в брикетах",
+     4525,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B59=\"\",\"\",IF(AND(H59=\"\",I59=\"\"),\"немає координат\",IF(OR(H59=\"\",I59=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H59),ISNUMBER(I59),H59>=44,H59<=53.5,I59>=22,I59<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B59=\"\",\"\",COUNTA(H59:I59,K59:N59)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     59,
+     "Євровік",
+     null,
+     1,
+     "зачиска",
+     20000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B60=\"\",\"\",IF(AND(H60=\"\",I60=\"\"),\"немає координат\",IF(OR(H60=\"\",I60=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H60),ISNUMBER(I60),H60>=44,H60<=53.5,I60>=22,I60<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B60=\"\",\"\",COUNTA(H60:I60,K60:N60)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     60,
+     "Ходорівський МК",
+     null,
+     1,
+     "Кишка св. очищена/ морожена; Кістка свина; шкіра свинна",
+     3500,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B61=\"\",\"\",IF(AND(H61=\"\",I61=\"\"),\"немає координат\",IF(OR(H61=\"\",I61=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H61),ISNUMBER(I61),H61>=44,H61<=53.5,I61>=22,I61<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B61=\"\",\"\",COUNTA(H61:I61,K61:N61)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     61,
+     "ВАРТО",
+     null,
+     1,
+     "Кістка куряча",
+     20000,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B62=\"\",\"\",IF(AND(H62=\"\",I62=\"\"),\"немає координат\",IF(OR(H62=\"\",I62=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H62),ISNUMBER(I62),H62>=44,H62<=53.5,I62>=22,I62<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B62=\"\",\"\",COUNTA(H62:I62,K62:N62)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     62,
+     "Новий Рівень",
+     null,
+     1,
+     "шкіра свинна; Голови; Кишка св. очищена/ морожена",
+     19800,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B63=\"\",\"\",IF(AND(H63=\"\",I63=\"\"),\"немає координат\",IF(OR(H63=\"\",I63=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H63),ISNUMBER(I63),H63>=44,H63<=53.5,I63>=22,I63<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B63=\"\",\"\",COUNTA(H63:I63,K63:N63)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     63,
+     "Мацеїв",
+     null,
+     1,
+     "Кишка св. очищена/ морожена",
+     10000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B64=\"\",\"\",IF(AND(H64=\"\",I64=\"\"),\"немає координат\",IF(OR(H64=\"\",I64=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H64),ISNUMBER(I64),H64>=44,H64<=53.5,I64>=22,I64<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B64=\"\",\"\",COUNTA(H64:I64,K64:N64)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     64,
+     "Галфермі",
+     null,
+     1,
+     "Кишка куряча; Перо; Кров",
+     5400,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B65=\"\",\"\",IF(AND(H65=\"\",I65=\"\"),\"немає координат\",IF(OR(H65=\"\",I65=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H65),ISNUMBER(I65),H65>=44,H65<=53.5,I65>=22,I65<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B65=\"\",\"\",COUNTA(H65:I65,K65:N65)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     65,
+     "Буськ ПТФ",
+     null,
+     1,
+     "Падіж",
+     600,
+     "свіжа",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B66=\"\",\"\",IF(AND(H66=\"\",I66=\"\"),\"немає координат\",IF(OR(H66=\"\",I66=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H66),ISNUMBER(I66),H66>=44,H66<=53.5,I66>=22,I66<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B66=\"\",\"\",COUNTA(H66:I66,K66:N66)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     66,
+     "Сколе",
+     null,
+     1,
+     "Кістка свина",
+     8000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B67=\"\",\"\",IF(AND(H67=\"\",I67=\"\"),\"немає координат\",IF(OR(H67=\"\",I67=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H67),ISNUMBER(I67),H67>=44,H67<=53.5,I67>=22,I67<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B67=\"\",\"\",COUNTA(H67:I67,K67:N67)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     67,
+     "Вепр",
+     null,
+     1,
+     "Кишка св. очищена/ морожена",
+     5500,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B68=\"\",\"\",IF(AND(H68=\"\",I68=\"\"),\"немає координат\",IF(OR(H68=\"\",I68=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H68),ISNUMBER(I68),H68>=44,H68<=53.5,I68>=22,I68<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B68=\"\",\"\",COUNTA(H68:I68,K68:N68)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     68,
+     "Гоща",
+     null,
+     1,
+     "Кістка свина; шкіра свинна",
+     18000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B69=\"\",\"\",IF(AND(H69=\"\",I69=\"\"),\"немає координат\",IF(OR(H69=\"\",I69=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H69),ISNUMBER(I69),H69>=44,H69<=53.5,I69>=22,I69<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B69=\"\",\"\",COUNTA(H69:I69,K69:N69)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     69,
+     "МіраМІт",
+     null,
+     1,
+     "Кістка свина",
+     9000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B70=\"\",\"\",IF(AND(H70=\"\",I70=\"\"),\"немає координат\",IF(OR(H70=\"\",I70=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H70),ISNUMBER(I70),H70>=44,H70<=53.5,I70>=22,I70<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B70=\"\",\"\",COUNTA(H70:I70,K70:N70)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     70,
+     "Болехів",
+     null,
+     1,
+     "шкіра свинна; Кістка свина",
+     12000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B71=\"\",\"\",IF(AND(H71=\"\",I71=\"\"),\"немає координат\",IF(OR(H71=\"\",I71=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H71),ISNUMBER(I71),H71>=44,H71<=53.5,I71>=22,I71<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B71=\"\",\"\",COUNTA(H71:I71,K71:N71)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     71,
+     "Рибак",
+     null,
+     1,
+     "Кістка свина",
+     7000,
+     "заморожена",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B72=\"\",\"\",IF(AND(H72=\"\",I72=\"\"),\"немає координат\",IF(OR(H72=\"\",I72=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H72),ISNUMBER(I72),H72>=44,H72<=53.5,I72>=22,I72<=41),\"ок\",\"перевірте\"))))",
+      "result": "немає координат"
+     },
+     {
+      "formula": "IF(B72=\"\",\"\",COUNTA(H72:I72,K72:N72)&\" з 6\")",
+      "result": "0 з 6"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B73=\"\",\"\",IF(AND(H73=\"\",I73=\"\"),\"немає координат\",IF(OR(H73=\"\",I73=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H73),ISNUMBER(I73),H73>=44,H73<=53.5,I73>=22,I73<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B73=\"\",\"\",COUNTA(H73:I73,K73:N73)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B74=\"\",\"\",IF(AND(H74=\"\",I74=\"\"),\"немає координат\",IF(OR(H74=\"\",I74=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H74),ISNUMBER(I74),H74>=44,H74<=53.5,I74>=22,I74<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B74=\"\",\"\",COUNTA(H74:I74,K74:N74)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B75=\"\",\"\",IF(AND(H75=\"\",I75=\"\"),\"немає координат\",IF(OR(H75=\"\",I75=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H75),ISNUMBER(I75),H75>=44,H75<=53.5,I75>=22,I75<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B75=\"\",\"\",COUNTA(H75:I75,K75:N75)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B76=\"\",\"\",IF(AND(H76=\"\",I76=\"\"),\"немає координат\",IF(OR(H76=\"\",I76=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H76),ISNUMBER(I76),H76>=44,H76<=53.5,I76>=22,I76<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B76=\"\",\"\",COUNTA(H76:I76,K76:N76)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B77=\"\",\"\",IF(AND(H77=\"\",I77=\"\"),\"немає координат\",IF(OR(H77=\"\",I77=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H77),ISNUMBER(I77),H77>=44,H77<=53.5,I77>=22,I77<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B77=\"\",\"\",COUNTA(H77:I77,K77:N77)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B78=\"\",\"\",IF(AND(H78=\"\",I78=\"\"),\"немає координат\",IF(OR(H78=\"\",I78=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H78),ISNUMBER(I78),H78>=44,H78<=53.5,I78>=22,I78<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B78=\"\",\"\",COUNTA(H78:I78,K78:N78)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B79=\"\",\"\",IF(AND(H79=\"\",I79=\"\"),\"немає координат\",IF(OR(H79=\"\",I79=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H79),ISNUMBER(I79),H79>=44,H79<=53.5,I79>=22,I79<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B79=\"\",\"\",COUNTA(H79:I79,K79:N79)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B80=\"\",\"\",IF(AND(H80=\"\",I80=\"\"),\"немає координат\",IF(OR(H80=\"\",I80=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H80),ISNUMBER(I80),H80>=44,H80<=53.5,I80>=22,I80<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B80=\"\",\"\",COUNTA(H80:I80,K80:N80)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B81=\"\",\"\",IF(AND(H81=\"\",I81=\"\"),\"немає координат\",IF(OR(H81=\"\",I81=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H81),ISNUMBER(I81),H81>=44,H81<=53.5,I81>=22,I81<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B81=\"\",\"\",COUNTA(H81:I81,K81:N81)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B82=\"\",\"\",IF(AND(H82=\"\",I82=\"\"),\"немає координат\",IF(OR(H82=\"\",I82=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H82),ISNUMBER(I82),H82>=44,H82<=53.5,I82>=22,I82<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B82=\"\",\"\",COUNTA(H82:I82,K82:N82)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B83=\"\",\"\",IF(AND(H83=\"\",I83=\"\"),\"немає координат\",IF(OR(H83=\"\",I83=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H83),ISNUMBER(I83),H83>=44,H83<=53.5,I83>=22,I83<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B83=\"\",\"\",COUNTA(H83:I83,K83:N83)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B84=\"\",\"\",IF(AND(H84=\"\",I84=\"\"),\"немає координат\",IF(OR(H84=\"\",I84=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H84),ISNUMBER(I84),H84>=44,H84<=53.5,I84>=22,I84<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B84=\"\",\"\",COUNTA(H84:I84,K84:N84)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B85=\"\",\"\",IF(AND(H85=\"\",I85=\"\"),\"немає координат\",IF(OR(H85=\"\",I85=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H85),ISNUMBER(I85),H85>=44,H85<=53.5,I85>=22,I85<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B85=\"\",\"\",COUNTA(H85:I85,K85:N85)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B86=\"\",\"\",IF(AND(H86=\"\",I86=\"\"),\"немає координат\",IF(OR(H86=\"\",I86=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H86),ISNUMBER(I86),H86>=44,H86<=53.5,I86>=22,I86<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B86=\"\",\"\",COUNTA(H86:I86,K86:N86)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B87=\"\",\"\",IF(AND(H87=\"\",I87=\"\"),\"немає координат\",IF(OR(H87=\"\",I87=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H87),ISNUMBER(I87),H87>=44,H87<=53.5,I87>=22,I87<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B87=\"\",\"\",COUNTA(H87:I87,K87:N87)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B88=\"\",\"\",IF(AND(H88=\"\",I88=\"\"),\"немає координат\",IF(OR(H88=\"\",I88=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H88),ISNUMBER(I88),H88>=44,H88<=53.5,I88>=22,I88<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B88=\"\",\"\",COUNTA(H88:I88,K88:N88)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B89=\"\",\"\",IF(AND(H89=\"\",I89=\"\"),\"немає координат\",IF(OR(H89=\"\",I89=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H89),ISNUMBER(I89),H89>=44,H89<=53.5,I89>=22,I89<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B89=\"\",\"\",COUNTA(H89:I89,K89:N89)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B90=\"\",\"\",IF(AND(H90=\"\",I90=\"\"),\"немає координат\",IF(OR(H90=\"\",I90=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H90),ISNUMBER(I90),H90>=44,H90<=53.5,I90>=22,I90<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B90=\"\",\"\",COUNTA(H90:I90,K90:N90)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B91=\"\",\"\",IF(AND(H91=\"\",I91=\"\"),\"немає координат\",IF(OR(H91=\"\",I91=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H91),ISNUMBER(I91),H91>=44,H91<=53.5,I91>=22,I91<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B91=\"\",\"\",COUNTA(H91:I91,K91:N91)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B92=\"\",\"\",IF(AND(H92=\"\",I92=\"\"),\"немає координат\",IF(OR(H92=\"\",I92=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H92),ISNUMBER(I92),H92>=44,H92<=53.5,I92>=22,I92<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B92=\"\",\"\",COUNTA(H92:I92,K92:N92)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B93=\"\",\"\",IF(AND(H93=\"\",I93=\"\"),\"немає координат\",IF(OR(H93=\"\",I93=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H93),ISNUMBER(I93),H93>=44,H93<=53.5,I93>=22,I93<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B93=\"\",\"\",COUNTA(H93:I93,K93:N93)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B94=\"\",\"\",IF(AND(H94=\"\",I94=\"\"),\"немає координат\",IF(OR(H94=\"\",I94=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H94),ISNUMBER(I94),H94>=44,H94<=53.5,I94>=22,I94<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B94=\"\",\"\",COUNTA(H94:I94,K94:N94)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B95=\"\",\"\",IF(AND(H95=\"\",I95=\"\"),\"немає координат\",IF(OR(H95=\"\",I95=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H95),ISNUMBER(I95),H95>=44,H95<=53.5,I95>=22,I95<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B95=\"\",\"\",COUNTA(H95:I95,K95:N95)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B96=\"\",\"\",IF(AND(H96=\"\",I96=\"\"),\"немає координат\",IF(OR(H96=\"\",I96=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H96),ISNUMBER(I96),H96>=44,H96<=53.5,I96>=22,I96<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B96=\"\",\"\",COUNTA(H96:I96,K96:N96)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B97=\"\",\"\",IF(AND(H97=\"\",I97=\"\"),\"немає координат\",IF(OR(H97=\"\",I97=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H97),ISNUMBER(I97),H97>=44,H97<=53.5,I97>=22,I97<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B97=\"\",\"\",COUNTA(H97:I97,K97:N97)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B98=\"\",\"\",IF(AND(H98=\"\",I98=\"\"),\"немає координат\",IF(OR(H98=\"\",I98=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H98),ISNUMBER(I98),H98>=44,H98<=53.5,I98>=22,I98<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B98=\"\",\"\",COUNTA(H98:I98,K98:N98)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B99=\"\",\"\",IF(AND(H99=\"\",I99=\"\"),\"немає координат\",IF(OR(H99=\"\",I99=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H99),ISNUMBER(I99),H99>=44,H99<=53.5,I99>=22,I99<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B99=\"\",\"\",COUNTA(H99:I99,K99:N99)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B100=\"\",\"\",IF(AND(H100=\"\",I100=\"\"),\"немає координат\",IF(OR(H100=\"\",I100=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H100),ISNUMBER(I100),H100>=44,H100<=53.5,I100>=22,I100<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B100=\"\",\"\",COUNTA(H100:I100,K100:N100)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B101=\"\",\"\",IF(AND(H101=\"\",I101=\"\"),\"немає координат\",IF(OR(H101=\"\",I101=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H101),ISNUMBER(I101),H101>=44,H101<=53.5,I101>=22,I101<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B101=\"\",\"\",COUNTA(H101:I101,K101:N101)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B102=\"\",\"\",IF(AND(H102=\"\",I102=\"\"),\"немає координат\",IF(OR(H102=\"\",I102=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H102),ISNUMBER(I102),H102>=44,H102<=53.5,I102>=22,I102<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B102=\"\",\"\",COUNTA(H102:I102,K102:N102)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B103=\"\",\"\",IF(AND(H103=\"\",I103=\"\"),\"немає координат\",IF(OR(H103=\"\",I103=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H103),ISNUMBER(I103),H103>=44,H103<=53.5,I103>=22,I103<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B103=\"\",\"\",COUNTA(H103:I103,K103:N103)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B104=\"\",\"\",IF(AND(H104=\"\",I104=\"\"),\"немає координат\",IF(OR(H104=\"\",I104=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H104),ISNUMBER(I104),H104>=44,H104<=53.5,I104>=22,I104<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B104=\"\",\"\",COUNTA(H104:I104,K104:N104)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B105=\"\",\"\",IF(AND(H105=\"\",I105=\"\"),\"немає координат\",IF(OR(H105=\"\",I105=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H105),ISNUMBER(I105),H105>=44,H105<=53.5,I105>=22,I105<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B105=\"\",\"\",COUNTA(H105:I105,K105:N105)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B106=\"\",\"\",IF(AND(H106=\"\",I106=\"\"),\"немає координат\",IF(OR(H106=\"\",I106=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H106),ISNUMBER(I106),H106>=44,H106<=53.5,I106>=22,I106<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B106=\"\",\"\",COUNTA(H106:I106,K106:N106)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B107=\"\",\"\",IF(AND(H107=\"\",I107=\"\"),\"немає координат\",IF(OR(H107=\"\",I107=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H107),ISNUMBER(I107),H107>=44,H107<=53.5,I107>=22,I107<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B107=\"\",\"\",COUNTA(H107:I107,K107:N107)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B108=\"\",\"\",IF(AND(H108=\"\",I108=\"\"),\"немає координат\",IF(OR(H108=\"\",I108=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H108),ISNUMBER(I108),H108>=44,H108<=53.5,I108>=22,I108<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B108=\"\",\"\",COUNTA(H108:I108,K108:N108)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B109=\"\",\"\",IF(AND(H109=\"\",I109=\"\"),\"немає координат\",IF(OR(H109=\"\",I109=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H109),ISNUMBER(I109),H109>=44,H109<=53.5,I109>=22,I109<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B109=\"\",\"\",COUNTA(H109:I109,K109:N109)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B110=\"\",\"\",IF(AND(H110=\"\",I110=\"\"),\"немає координат\",IF(OR(H110=\"\",I110=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H110),ISNUMBER(I110),H110>=44,H110<=53.5,I110>=22,I110<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B110=\"\",\"\",COUNTA(H110:I110,K110:N110)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B111=\"\",\"\",IF(AND(H111=\"\",I111=\"\"),\"немає координат\",IF(OR(H111=\"\",I111=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H111),ISNUMBER(I111),H111>=44,H111<=53.5,I111>=22,I111<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B111=\"\",\"\",COUNTA(H111:I111,K111:N111)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B112=\"\",\"\",IF(AND(H112=\"\",I112=\"\"),\"немає координат\",IF(OR(H112=\"\",I112=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H112),ISNUMBER(I112),H112>=44,H112<=53.5,I112>=22,I112<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B112=\"\",\"\",COUNTA(H112:I112,K112:N112)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B113=\"\",\"\",IF(AND(H113=\"\",I113=\"\"),\"немає координат\",IF(OR(H113=\"\",I113=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H113),ISNUMBER(I113),H113>=44,H113<=53.5,I113>=22,I113<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B113=\"\",\"\",COUNTA(H113:I113,K113:N113)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B114=\"\",\"\",IF(AND(H114=\"\",I114=\"\"),\"немає координат\",IF(OR(H114=\"\",I114=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H114),ISNUMBER(I114),H114>=44,H114<=53.5,I114>=22,I114<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B114=\"\",\"\",COUNTA(H114:I114,K114:N114)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B115=\"\",\"\",IF(AND(H115=\"\",I115=\"\"),\"немає координат\",IF(OR(H115=\"\",I115=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H115),ISNUMBER(I115),H115>=44,H115<=53.5,I115>=22,I115<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B115=\"\",\"\",COUNTA(H115:I115,K115:N115)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B116=\"\",\"\",IF(AND(H116=\"\",I116=\"\"),\"немає координат\",IF(OR(H116=\"\",I116=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H116),ISNUMBER(I116),H116>=44,H116<=53.5,I116>=22,I116<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B116=\"\",\"\",COUNTA(H116:I116,K116:N116)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B117=\"\",\"\",IF(AND(H117=\"\",I117=\"\"),\"немає координат\",IF(OR(H117=\"\",I117=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H117),ISNUMBER(I117),H117>=44,H117<=53.5,I117>=22,I117<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B117=\"\",\"\",COUNTA(H117:I117,K117:N117)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B118=\"\",\"\",IF(AND(H118=\"\",I118=\"\"),\"немає координат\",IF(OR(H118=\"\",I118=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H118),ISNUMBER(I118),H118>=44,H118<=53.5,I118>=22,I118<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B118=\"\",\"\",COUNTA(H118:I118,K118:N118)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B119=\"\",\"\",IF(AND(H119=\"\",I119=\"\"),\"немає координат\",IF(OR(H119=\"\",I119=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H119),ISNUMBER(I119),H119>=44,H119<=53.5,I119>=22,I119<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B119=\"\",\"\",COUNTA(H119:I119,K119:N119)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B120=\"\",\"\",IF(AND(H120=\"\",I120=\"\"),\"немає координат\",IF(OR(H120=\"\",I120=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H120),ISNUMBER(I120),H120>=44,H120<=53.5,I120>=22,I120<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B120=\"\",\"\",COUNTA(H120:I120,K120:N120)&\" з 6\")"
+     }
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "formula": "IF(B121=\"\",\"\",IF(AND(H121=\"\",I121=\"\"),\"немає координат\",IF(OR(H121=\"\",I121=\"\"),\"бракує однієї\",IF(AND(ISNUMBER(H121),ISNUMBER(I121),H121>=44,H121<=53.5,I121>=22,I121<=41),\"ок\",\"перевірте\"))))"
+     },
+     {
+      "formula": "IF(B121=\"\",\"\",COUNTA(H121:I121,K121:N121)&\" з 6\")"
+     }
+    ]
+   ],
+   "freeze": "C2",
+   "autoFilter": "A1:R121",
+   "validations": [
+    {
+     "ref": "H2:H121",
+     "type": "decimal",
+     "formulae": [
+      44.0,
+      53.5
+     ],
+     "allowBlank": true,
+     "error": "Введіть число від 44 до 53,5 (широта в десяткових градусах). Якщо крапка не приймається, використайте кому.",
+     "errorTitle": "Широта"
+    },
+    {
+     "ref": "I2:I121",
+     "type": "decimal",
+     "formulae": [
+      22.0,
+      41.0
+     ],
+     "allowBlank": true,
+     "error": "Введіть число від 22 до 41 (довгота в десяткових градусах). Якщо крапка не приймається, використайте кому.",
+     "errorTitle": "Довгота"
+    },
+    {
+     "ref": "K2:K121",
+     "type": "list",
+     "formulae": [
+      "\"Щодня,Пн–Пт,Пн–Сб,Інше (див. примітку)\"",
+      0.0
+     ],
+     "allowBlank": true,
+     "error": "Оберіть зі списку. Інші випадки опишіть у примітці.",
+     "errorTitle": "Робочі дні"
+    },
+    {
+     "ref": "L2:M121",
+     "type": "time",
+     "formulae": [
+      0.0,
+      0.9999884259
+     ],
+     "allowBlank": true,
+     "error": "Введіть час у форматі ГГ:ХХ, наприклад 06:00.",
+     "errorTitle": "Час"
+    },
+    {
+     "ref": "N2:N121",
+     "type": "whole",
+     "formulae": [
+      0.0,
+      600.0
+     ],
+     "allowBlank": true,
+     "error": "Введіть ціле число хвилин від 0 до 600.",
+     "errorTitle": "Хвилини"
+    },
+    {
+     "ref": "O2:O121",
+     "type": "list",
+     "formulae": [
+      "\"Так,Ні\"",
+      0.0
+     ],
+     "allowBlank": true,
+     "error": "Оберіть Так або Ні.",
+     "errorTitle": "Баки"
+    }
+   ],
+   "conditionals": [
+    {
+     "ref": "Q2:Q121",
+     "rules": [
+      {
+       "formula": "Q2=\"перевірте\"",
+       "fill": "FFFFC7CE"
+      },
+      {
+       "formula": "Q2=\"ок\"",
+       "fill": "FFD5EDDC"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Можливі_дублікати",
+   "font": {
+    "name": "Arial",
+    "size": 10.0
+   },
+   "columns": [
+    {
+     "width": 26.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "width": 34.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "width": 9.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFF0F0F0",
+      "wrap": true
+     }
+    },
+    {
+     "width": 18.0,
+     "headerStyle": {
+      "fill": "FF1F3864",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     },
+     "cellStyle": {
+      "fill": "FFFFF6D6"
+     },
+     "role": "input"
+    }
+   ],
+   "rows": [
+    [
+     "Назва А",
+     "Назва Б",
+     "Чому здається, що це один постачальник",
+     "Рейсів А",
+     "Рейсів Б",
+     "Це один постачальник?"
+    ],
+    [
+     "К-Агроінвест трейд",
+     "Агроінвест",
+     "одна назва містить іншу",
+     73,
+     4,
+     null
+    ],
+    [
+     "Галферміт",
+     "Галфермі",
+     "одна назва містить іншу",
+     22,
+     1,
+     null
+    ],
+    [
+     "Екзім Фут",
+     "Ексім Фут",
+     "схожі написання (88%)",
+     21,
+     5,
+     null
+    ],
+    [
+     "Рогатин Мк",
+     "Авіс Рогатин МК",
+     "одна назва містить іншу",
+     13,
+     4,
+     null
+    ],
+    [
+     "Євровік Сколе",
+     "Євровік",
+     "одна назва містить іншу",
+     13,
+     1,
+     null
+    ],
+    [
+     "Євровік Сколе",
+     "Сколе",
+     "одна назва містить іншу",
+     13,
+     1,
+     null
+    ],
+    [
+     "Євровік Миколаів",
+     "Євровік",
+     "одна назва містить іншу",
+     13,
+     1,
+     null
+    ],
+    [
+     "Старицький МК",
+     "Старицький",
+     "одна назва містить іншу",
+     8,
+     5,
+     null
+    ],
+    [
+     "Ексім Фут",
+     "Ексім",
+     "одна назва містить іншу",
+     5,
+     4,
+     null
+    ],
+    [
+     "Авіс Рогатин МК",
+     "Авіс Рогатин ПТФ",
+     "схожі написання (81%)",
+     4,
+     2,
+     null
+    ]
+   ],
+   "freeze": "A2",
+   "validations": [
+    {
+     "ref": "F2:F11",
+     "type": "list",
+     "formulae": [
+      "\"Так,Ні,Не знаю\"",
+      0.0
+     ],
+     "allowBlank": true,
+     "error": "Оберіть: Так, Ні або Не знаю.",
+     "errorTitle": "Відповідь"
+    }
+   ]
+  },
+  {
+   "name": "Відповідність_назв",
+   "font": {
+    "name": "Arial",
+    "size": 10.0
+   },
+   "columns": [
+    {
+     "width": 34.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     }
+    },
+    {
+     "width": 10.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     }
+    },
+    {
+     "width": 34.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     }
+    },
+    {
+     "width": 36.0,
+     "headerStyle": {
+      "fill": "FF595959",
+      "fontColor": "FFFFFFFF",
+      "bold": true,
+      "wrap": true
+     }
+    }
+   ],
+   "rows": [
+    [
+     "Як написано в плані",
+     "Скільки разів",
+     "Назва в таблиці «Постачальники»",
+     "Пояснення"
+    ],
+    [
+     "К-Агроінвест трейд",
+     73,
+     "К-Агроінвест трейд",
+     null
+    ],
+    [
+     "Агроль",
+     56,
+     "Агроль",
+     null
+    ],
+    [
+     "Лемберг Міт",
+     26,
+     "Лемберг Міт",
+     null
+    ],
+    [
+     "Лемберг міт",
+     26,
+     "Лемберг Міт",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Західне курча",
+     22,
+     "Західне курча",
+     null
+    ],
+    [
+     "Західне Курча",
+     5,
+     "Західне курча",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Хінкель когут",
+     17,
+     "Хінкель когут",
+     null
+    ],
+    [
+     "Хінкель Когут",
+     9,
+     "Хінкель когут",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Плай",
+     26,
+     "Плай",
+     null
+    ],
+    [
+     "Мясопром",
+     23,
+     "Мясопром",
+     null
+    ],
+    [
+     "Наша птиця",
+     12,
+     "Наша птиця",
+     null
+    ],
+    [
+     "Наша Птиця",
+     11,
+     "Наша птиця",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Галферміт",
+     22,
+     "Галферміт",
+     null
+    ],
+    [
+     "УПГ інвест",
+     21,
+     "УПГ інвест",
+     null
+    ],
+    [
+     "Екзім Фут",
+     21,
+     "Екзім Фут",
+     null
+    ],
+    [
+     "ЗборівАгроТрейд",
+     11,
+     "ЗборівАгроТрейд",
+     null
+    ],
+    [
+     "Зборів Агро Трейд",
+     6,
+     "ЗборівАгроТрейд",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Зборів АгроТрейд",
+     1,
+     "ЗборівАгроТрейд",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Зборів Агротрейд",
+     1,
+     "ЗборівАгроТрейд",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Луцька Аграрна Компанія",
+     13,
+     "Луцька Аграрна Компанія",
+     null
+    ],
+    [
+     "Луцька Аграрна компанія",
+     4,
+     "Луцька Аграрна Компанія",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Білий Берег",
+     16,
+     "Білий Берег",
+     null
+    ],
+    [
+     "Губин",
+     13,
+     "Губин",
+     null
+    ],
+    [
+     "Гарбузівське Курча",
+     13,
+     "Гарбузівське Курча",
+     null
+    ],
+    [
+     "ФОП Мацула",
+     13,
+     "ФОП Мацула",
+     null
+    ],
+    [
+     "Єврокомерс",
+     13,
+     "Єврокомерс",
+     null
+    ],
+    [
+     "Рогатин Мк",
+     12,
+     "Рогатин Мк",
+     null
+    ],
+    [
+     "РогатинМК",
+     1,
+     "Рогатин Мк",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Євровік Сколе",
+     13,
+     "Євровік Сколе",
+     null
+    ],
+    [
+     "Агротем",
+     13,
+     "Агротем",
+     null
+    ],
+    [
+     "Євровік Миколаів",
+     13,
+     "Євровік Миколаів",
+     null
+    ],
+    [
+     "Мясник Прикарпаття",
+     12,
+     "Мясник Прикарпаття",
+     null
+    ],
+    [
+     "ГлиняниАгро",
+     9,
+     "ГлиняниАгро",
+     null
+    ],
+    [
+     "Пигичка",
+     8,
+     "Пигичка",
+     null
+    ],
+    [
+     "Родинна ковбаска",
+     6,
+     "Родинна ковбаска",
+     null
+    ],
+    [
+     "Родинна Ковбаска",
+     2,
+     "Родинна ковбаска",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "ФОП Горецький",
+     8,
+     "ФОП Горецький",
+     null
+    ],
+    [
+     "ФОП Мацюк",
+     8,
+     "ФОП Мацюк",
+     null
+    ],
+    [
+     "Старицький МК",
+     8,
+     "Старицький МК",
+     null
+    ],
+    [
+     "Авіс (Камянець Подільска філія)",
+     4,
+     "Авіс (Камянець Подільска філія)",
+     null
+    ],
+    [
+     "Авіс(Камянець Подільска філія)",
+     4,
+     "Авіс (Камянець Подільска філія)",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Дак Агро",
+     8,
+     "Дак Агро",
+     null
+    ],
+    [
+     "Случ Продукт",
+     7,
+     "Случ Продукт",
+     null
+    ],
+    [
+     "Агроном центр",
+     7,
+     "Агроном центр",
+     null
+    ],
+    [
+     "Агролайф Транс сервіс",
+     6,
+     "Агролайф Транс сервіс",
+     null
+    ],
+    [
+     "Омега 3",
+     6,
+     "Омега 3",
+     null
+    ],
+    [
+     "Мясна Хатка",
+     5,
+     "Мясна Хатка",
+     null
+    ],
+    [
+     "ФОП Сташків",
+     5,
+     "ФОП Сташків",
+     null
+    ],
+    [
+     "Старицький",
+     5,
+     "Старицький",
+     null
+    ],
+    [
+     "Крупець",
+     5,
+     "Крупець",
+     null
+    ],
+    [
+     "Ексім Фут",
+     5,
+     "Ексім Фут",
+     null
+    ],
+    [
+     "Мясний ДІМ",
+     5,
+     "Мясний ДІМ",
+     null
+    ],
+    [
+     "Сільпо",
+     5,
+     "Сільпо",
+     null
+    ],
+    [
+     "Галицька Свіжина",
+     4,
+     "Галицька Свіжина",
+     null
+    ],
+    [
+     "Галицька свіжина",
+     1,
+     "Галицька Свіжина",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Броди Агро Продукт",
+     4,
+     "Броди Агро Продукт",
+     null
+    ],
+    [
+     "Броди Агро продукт",
+     1,
+     "Броди Агро Продукт",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "Авіс Рогатин МК",
+     4,
+     "Авіс Рогатин МК",
+     null
+    ],
+    [
+     "ФОП Гелей",
+     4,
+     "ФОП Гелей",
+     null
+    ],
+    [
+     "Куликів",
+     4,
+     "Куликів",
+     null
+    ],
+    [
+     "Ексім",
+     4,
+     "Ексім",
+     null
+    ],
+    [
+     "Юрмія",
+     4,
+     "Юрмія",
+     null
+    ],
+    [
+     "Агроінвест",
+     4,
+     "Агроінвест",
+     null
+    ],
+    [
+     "ГощаМіт",
+     4,
+     "ГощаМіт",
+     null
+    ],
+    [
+     "Термоптаха",
+     4,
+     "Термоптаха",
+     null
+    ],
+    [
+     "Жовква",
+     4,
+     "Жовква",
+     null
+    ],
+    [
+     "ЗахідноУкраїнська",
+     4,
+     "ЗахідноУкраїнська",
+     null
+    ],
+    [
+     "Антонівський МК",
+     2,
+     "Антонівський МК",
+     null
+    ],
+    [
+     "АнтонівськийМК",
+     1,
+     "Антонівський МК",
+     "об'єднано: відрізняється лише регістром або пробілами"
+    ],
+    [
+     "ЧікІнвест",
+     3,
+     "ЧікІнвест",
+     null
+    ],
+    [
+     "Авіс Рогатин ПТФ",
+     2,
+     "Авіс Рогатин ПТФ",
+     null
+    ],
+    [
+     "Ходорів МК",
+     2,
+     "Ходорів МК",
+     null
+    ],
+    [
+     "Євровік",
+     1,
+     "Євровік",
+     null
+    ],
+    [
+     "Ходорівський МК",
+     1,
+     "Ходорівський МК",
+     null
+    ],
+    [
+     "ВАРТО",
+     1,
+     "ВАРТО",
+     null
+    ],
+    [
+     "Новий Рівень",
+     1,
+     "Новий Рівень",
+     null
+    ],
+    [
+     "Мацеїв",
+     1,
+     "Мацеїв",
+     null
+    ],
+    [
+     "Галфермі",
+     1,
+     "Галфермі",
+     null
+    ],
+    [
+     "Буськ ПТФ",
+     1,
+     "Буськ ПТФ",
+     null
+    ],
+    [
+     "Сколе",
+     1,
+     "Сколе",
+     null
+    ],
+    [
+     "Вепр",
+     1,
+     "Вепр",
+     null
+    ],
+    [
+     "Гоща",
+     1,
+     "Гоща",
+     null
+    ],
+    [
+     "МіраМІт",
+     1,
+     "МіраМІт",
+     null
+    ],
+    [
+     "Болехів",
+     1,
+     "Болехів",
+     null
+    ],
+    [
+     "Рибак",
+     1,
+     "Рибак",
+     null
+    ]
+   ],
+   "freeze": "A2",
+   "autoFilter": "A1:D86"
+  }
+ ]
+}

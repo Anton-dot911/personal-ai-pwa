@@ -23,6 +23,26 @@ export interface Usage {
   output: number;
 }
 
+export type ContentBlock =
+  | { type: "text"; text: string }
+  | { type: "tool_use"; id: string; name: string; input: unknown }
+  | { type: "tool_result"; tool_use_id: string; content: string; is_error?: boolean };
+
+export interface ApiMessage {
+  role: "user" | "assistant";
+  content: string | ContentBlock[];
+}
+
+export interface ToolDef {
+  name: string;
+  description: string;
+  input_schema: Record<string, unknown>;
+}
+
+export type TurnEvent =
+  | { type: "text"; text: string }
+  | { type: "done"; content: ContentBlock[]; stopReason: string | null; usage: Usage };
+
 interface RawUsage {
   input_tokens?: number;
   cache_creation_input_tokens?: number;
@@ -85,39 +105,51 @@ export async function validateApiKey(apiKey: string): Promise<void> {
 
 interface StreamEvent {
   type: string;
-  delta?: { type?: string; text?: string };
+  index?: number;
+  delta?: { type?: string; text?: string; partial_json?: string; stop_reason?: string | null };
+  content_block?: { type?: string; id?: string; name?: string };
   message?: { usage?: RawUsage };
   usage?: RawUsage;
   error?: { message?: string };
 }
 
-function handleEvent(raw: string, usage: Usage): string | null {
+interface BlockAcc {
+  kind: "text" | "tool_use";
+  text: string;
+  id?: string;
+  name?: string;
+  json: string;
+}
+
+function parseSse(raw: string): StreamEvent | null {
   const dataLine = raw.split("\n").find((line) => line.startsWith("data:"));
   if (!dataLine) return null;
   const payload = dataLine.slice(5).trim();
   if (!payload) return null;
-
-  const event = JSON.parse(payload) as StreamEvent;
-  if (event.type === "error") {
-    throw new ApiError(event.error?.message ?? "Під час відповіді сталася помилка.");
-  }
-  if (event.type === "message_start") applyRawUsage(usage, event.message?.usage);
-  if (event.type === "message_delta") applyRawUsage(usage, event.usage);
-  if (event.type === "content_block_delta" && event.delta?.type === "text_delta") {
-    return event.delta.text ?? null;
-  }
-  return null;
+  return JSON.parse(payload) as StreamEvent;
 }
 
-// Стрімінг: віддає фрагменти тексту, а наприкінці передає usage через onUsage.
-export async function* streamMessage(params: {
+function parseToolInput(json: string): unknown {
+  if (!json) return {};
+  try {
+    return JSON.parse(json);
+  } catch {
+    // Некоректний JSON від моделі перетворюємо на порожній ввід: інструмент повідомить про помилку.
+    return {};
+  }
+}
+
+// Один хід моделі зі стрімінгом. Текст віддається по мірі надходження, а наприкінці
+// приходить повний список блоків, включно з викликами інструментів.
+export async function* streamTurn(params: {
   apiKey: string;
   model: string;
   system?: SystemBlock[];
-  messages: ChatTurn[];
+  messages: ApiMessage[];
+  tools?: ToolDef[];
   signal?: AbortSignal;
-  onUsage?: (usage: Usage) => void;
-}): AsyncGenerator<string> {
+  maxTokens?: number;
+}): AsyncGenerator<TurnEvent> {
   let res: Response;
   try {
     res = await fetch(`${API_URL}/messages`, {
@@ -125,9 +157,10 @@ export async function* streamMessage(params: {
       headers: headers(params.apiKey),
       body: JSON.stringify({
         model: params.model,
-        max_tokens: 2048,
+        max_tokens: params.maxTokens ?? 2048,
         stream: true,
         system: params.system && params.system.length > 0 ? params.system : undefined,
+        tools: params.tools && params.tools.length > 0 ? params.tools : undefined,
         messages: params.messages,
       }),
       signal: params.signal,
@@ -141,6 +174,8 @@ export async function* streamMessage(params: {
   const reader = res.body.getReader();
   const decoder = new TextDecoder();
   const usage = emptyUsage();
+  const blocks = new Map<number, BlockAcc>();
+  let stopReason: string | null = null;
   let buffer = "";
 
   try {
@@ -153,9 +188,39 @@ export async function* streamMessage(params: {
       while (end !== -1) {
         const raw = buffer.slice(0, end);
         buffer = buffer.slice(end + 2);
-        const text = handleEvent(raw, usage);
-        if (text) yield text;
         end = buffer.indexOf("\n\n");
+
+        const event = parseSse(raw);
+        if (!event) continue;
+
+        if (event.type === "error") {
+          throw new ApiError(event.error?.message ?? "Під час відповіді сталася помилка.");
+        }
+        if (event.type === "message_start") applyRawUsage(usage, event.message?.usage);
+        if (event.type === "message_delta") {
+          if (event.delta?.stop_reason) stopReason = event.delta.stop_reason;
+          applyRawUsage(usage, event.usage);
+        }
+        if (event.type === "content_block_start" && event.index !== undefined) {
+          const cb = event.content_block;
+          blocks.set(
+            event.index,
+            cb?.type === "tool_use"
+              ? { kind: "tool_use", text: "", id: cb.id, name: cb.name, json: "" }
+              : { kind: "text", text: "", json: "" }
+          );
+        }
+        if (event.type === "content_block_delta" && event.index !== undefined && event.delta) {
+          const block = blocks.get(event.index);
+          if (!block) continue;
+          if (event.delta.type === "text_delta") {
+            const piece = event.delta.text ?? "";
+            block.text += piece;
+            if (piece) yield { type: "text", text: piece };
+          } else if (event.delta.type === "input_json_delta") {
+            block.json += event.delta.partial_json ?? "";
+          }
+        }
       }
     }
   } catch (err) {
@@ -163,7 +228,23 @@ export async function* streamMessage(params: {
     throw err instanceof ApiError ? err : new ApiError(NETWORK_ERROR);
   }
 
-  params.onUsage?.(usage);
+  const content: ContentBlock[] = [];
+  for (const index of [...blocks.keys()].sort((a, b) => a - b)) {
+    const block = blocks.get(index);
+    if (!block) continue;
+    if (block.kind === "text" && block.text) {
+      content.push({ type: "text", text: block.text });
+    }
+    if (block.kind === "tool_use") {
+      content.push({
+        type: "tool_use",
+        id: block.id ?? "",
+        name: block.name ?? "",
+        input: parseToolInput(block.json),
+      });
+    }
+  }
+  yield { type: "done", content, stopReason, usage };
 }
 
 // Запит без стрімінгу, наприклад для підсумку розмови.
@@ -217,4 +298,3 @@ export function toTurns(messages: ChatTurn[]): ChatTurn[] {
   }
   return turns;
 }
-

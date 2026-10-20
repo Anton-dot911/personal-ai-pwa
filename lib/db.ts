@@ -22,12 +22,24 @@ export interface Conversation {
   updatedAt: number;
 }
 
+export interface StoredFileMeta {
+  id: string;
+  name: string;
+  size: number;
+}
+
 export interface Message {
   id: string;
   conversationId: string;
   role: Role;
   content: string;
   usage?: Usage;
+  files?: StoredFileMeta[];
+  createdAt: number;
+}
+
+interface FileRecord extends StoredFileMeta {
+  blob: Blob;
   createdAt: number;
 }
 
@@ -47,10 +59,11 @@ interface AppDB extends DBSchema {
   messages: { key: string; value: Message; indexes: { "by-conversation": string } };
   secrets: { key: string; value: Secret };
   settings: { key: string; value: Setting };
+  files: { key: string; value: FileRecord };
 }
 
 const DB_NAME = "personal-ai";
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 let dbPromise: Promise<IDBPDatabase<AppDB>> | null = null;
 
@@ -68,6 +81,9 @@ export function getDB(): Promise<IDBPDatabase<AppDB>> {
         }
         if (oldVersion < 2) {
           db.createObjectStore("projects", { keyPath: "id" });
+        }
+        if (oldVersion < 3) {
+          db.createObjectStore("files", { keyPath: "id" });
         }
       },
     });
@@ -153,11 +169,32 @@ export async function addMessage(
   conversationId: string,
   role: Role,
   content: string,
-  usage?: Usage
+  usage?: Usage,
+  files?: StoredFileMeta[]
 ): Promise<Message> {
-  const message: Message = { id: newId(), conversationId, role, content, usage, createdAt: Date.now() };
+  const message: Message = {
+    id: newId(),
+    conversationId,
+    role,
+    content,
+    usage,
+    files,
+    createdAt: Date.now(),
+  };
   await (await getDB()).put("messages", message);
   return message;
+}
+
+// Файли зберігаються в IndexedDB, щоб залишатися доступними після перезавантаження.
+export async function saveFile(name: string, blob: Blob): Promise<StoredFileMeta> {
+  const record: FileRecord = { id: newId(), name, size: blob.size, blob, createdAt: Date.now() };
+  await (await getDB()).put("files", record);
+  return { id: record.id, name, size: record.size };
+}
+
+export async function getFileBlob(id: string): Promise<Blob | null> {
+  const record = await (await getDB()).get("files", id);
+  return record?.blob ?? null;
 }
 
 export async function getMessages(conversationId: string): Promise<Message[]> {

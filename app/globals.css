@@ -268,3 +268,41 @@ textarea.inset {
   min-height: 96px;
   resize: vertical;
 }
+
+/* Етап 3a.2: картки файлів у відповідях */
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.file-card {
+  align-self: flex-start;
+  appearance: none;
+  background: var(--bg);
+  border: 0;
+  border-radius: var(--radius-md);
+  box-shadow: 6px 6px 12px var(--dark), -6px -6px 12px var(--light);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font: inherit;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.file-card:active {
+  box-shadow: inset 4px 4px 8px var(--dark), inset -4px -4px 8px var(--light);
+}
+
+.file-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.file-meta {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}

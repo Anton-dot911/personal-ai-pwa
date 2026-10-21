@@ -46,6 +46,51 @@ function applyStyle(
   if (style.wrap) cell.alignment = { wrapText: true, vertical: "top" };
 }
 
+type ColumnKind = "number" | "date";
+
+const NUMBER_TEXT = /^\s*-?\d+(?:[.,]\d+)?\s*$/;
+const DATE_DMY = /^\s*(\d{2})\.(\d{2})\.(\d{4})\s*$/;
+const DATE_ISO = /^\s*(\d{4})-(\d{2})-(\d{2})\s*$/;
+
+// Формат з роками або днями (dd.mm.yyyy) це дата. Формат з нулями або # це число.
+function isDateFormat(numFmt: string): boolean {
+  return /[dy]/i.test(numFmt) && !/[#0]/.test(numFmt.replace(/\[[^\]]*\]/g, ""));
+}
+
+// Колонки з числовим форматом, числовою валідацією або форматом дати.
+function columnKinds(spec: SheetSpec): Map<number, ColumnKind> {
+  const kinds = new Map<number, ColumnKind>();
+  (spec.columns ?? []).forEach((c, i) => {
+    const fmt = c.cellStyle?.numFmt;
+    if (!fmt) return;
+    if (isDateFormat(fmt)) kinds.set(i + 1, "date");
+    else if (/[0#]/.test(fmt)) kinds.set(i + 1, "number");
+  });
+  for (const v of spec.validations ?? []) {
+    const col = parseRef(v.ref.split(":")[0]).col;
+    if (kinds.has(col)) continue;
+    if (v.type === "decimal" || v.type === "whole") kinds.set(col, "number");
+    if (v.type === "date") kinds.set(col, "date");
+  }
+  return kinds;
+}
+
+// Модель часто передає суми рядком, наприклад "1200". Такий текст не враховує SUM,
+// тому в числових колонках рядок перетворюється на число, а в колонках дат на дату.
+function coerce(value: CellValue, kind: ColumnKind | undefined): CellValue | Date {
+  if (typeof value !== "string" || !kind) return value;
+  if (kind === "number" && NUMBER_TEXT.test(value)) {
+    return Number(value.trim().replace(",", "."));
+  }
+  if (kind === "date") {
+    const dmy = DATE_DMY.exec(value);
+    if (dmy) return new Date(Date.UTC(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1])));
+    const iso = DATE_ISO.exec(value);
+    if (iso) return new Date(Date.UTC(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3])));
+  }
+  return value;
+}
+
 function buildSheet(wb: ExcelJS.Workbook, spec: SheetSpec): void {
   const ws = wb.addWorksheet(spec.name);
   const font = spec.font ?? DEFAULT_FONT;
@@ -56,6 +101,7 @@ function buildSheet(wb: ExcelJS.Workbook, spec: SheetSpec): void {
   });
 
   const overrides = new Map((spec.cellStyles ?? []).map((o) => [o.ref, o.style]));
+  const kinds = columnKinds(spec);
 
   spec.rows.forEach((row, r) => {
     row.forEach((value, c) => {
@@ -66,7 +112,7 @@ function buildSheet(wb: ExcelJS.Workbook, spec: SheetSpec): void {
             ? { formula: value.formula }
             : { formula: value.formula, result: value.result };
       } else if (value !== null) {
-        cell.value = value;
+        cell.value = r === 0 ? value : coerce(value, kinds.get(c + 1));
       }
       const column = columns[c];
       const base = r === 0 ? column?.headerStyle : column?.cellStyle;

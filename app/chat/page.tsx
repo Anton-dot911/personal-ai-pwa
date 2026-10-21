@@ -36,6 +36,7 @@ import {
 } from "@/lib/db";
 import { CREATE_XLSX_TOOL, MAX_TOOL_STEPS, XLSX_GUIDANCE, runCreateXlsx } from "@/lib/xlsx/tool";
 import { requestPersistence } from "@/lib/persist";
+import { backupFilename, buildBackup, restoreBackup } from "@/lib/backup";
 
 const fmt = (n: number) => n.toLocaleString("uk-UA");
 const fmtSize = (bytes: number) =>
@@ -60,6 +61,7 @@ export default function ChatPage() {
   const [models, setModels] = useState<ModelInfo[]>([]);
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [newChatModel, setNewChatModel] = useState<string>(DEFAULT_MODEL);
+  const [backupMessage, setBackupMessage] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -106,7 +108,11 @@ export default function ChatPage() {
         setActiveConv(latest);
         setMessages(latestMessages);
       }
-    })().catch(() => router.replace("/setup"));
+    })().catch((err) =>
+      setError(
+        `Не вдалося прочитати збережені дані: ${err instanceof Error ? err.message : "невідома помилка"}`
+      )
+    );
 
     return () => {
       cancelled = true;
@@ -215,6 +221,44 @@ export default function ChatPage() {
     link.click();
     link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  async function exportBackup() {
+    try {
+      const data = await buildBackup();
+      const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = backupFilename();
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      setBackupMessage(
+        `Копію збережено: розмов ${data.conversations.length}, повідомлень ${data.messages.length}.`
+      );
+    } catch (err) {
+      setBackupMessage(err instanceof Error ? err.message : "Не вдалося зберегти копію.");
+    }
+  }
+
+  async function restoreFromFile(file: File | undefined) {
+    if (!file || busy) return;
+    try {
+      const text = await file.text();
+      const result = await restoreBackup(text);
+      setProjects(await listProjects());
+      setSelectedProjectId(null);
+      setActiveConv(null);
+      setMessages([]);
+      await refreshConversations(null);
+      setBackupMessage(
+        `Відновлено: проєктів ${result.projects}, розмов ${result.conversations}, повідомлень ${result.messages}.`
+      );
+    } catch (err) {
+      setBackupMessage(err instanceof Error ? err.message : "Не вдалося відновити копію.");
+    }
   }
 
   async function send(event?: FormEvent<HTMLFormElement>) {
@@ -472,6 +516,26 @@ export default function ChatPage() {
                 Створити
               </button>
             </div>
+          </div>
+
+          <div className="stack-sm">
+            <h2 className="section-title">Резервна копія</h2>
+            <p className="muted">
+              Копія містить проєкти, розмови й повідомлення. Ключ API і файли таблиць до неї не входять.
+            </p>
+            <button className="btn" type="button" onClick={() => void exportBackup()}>
+              Зберегти копію
+            </button>
+            <label className="btn file-pick">
+              Відновити з файлу
+              <input
+                type="file"
+                accept="application/json,.json"
+                className="sr-only"
+                onChange={(e) => void restoreFromFile(e.target.files?.[0])}
+              />
+            </label>
+            {backupMessage && <p className="muted">{backupMessage}</p>}
           </div>
         </section>
       )}

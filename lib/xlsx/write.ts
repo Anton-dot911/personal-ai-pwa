@@ -46,7 +46,7 @@ function applyStyle(
   if (style.wrap) cell.alignment = { wrapText: true, vertical: "top" };
 }
 
-type ColumnKind = "number" | "date";
+export type ColumnKind = "number" | "date";
 
 const NUMBER_TEXT = /^\s*-?\d+(?:[.,]\d+)?\s*$/;
 const DATE_DMY = /^\s*(\d{2})\.(\d{2})\.(\d{4})\s*$/;
@@ -77,7 +77,7 @@ function columnKinds(spec: SheetSpec): Map<number, ColumnKind> {
 
 // Модель часто передає суми рядком, наприклад "1200". Такий текст не враховує SUM,
 // тому в числових колонках рядок перетворюється на число, а в колонках дат на дату.
-function coerce(value: CellValue, kind: ColumnKind | undefined): CellValue | Date {
+export function coerceCell(value: CellValue, kind: ColumnKind | undefined): CellValue | Date {
   if (typeof value !== "string" || !kind) return value;
   if (kind === "number" && NUMBER_TEXT.test(value)) {
     return Number(value.trim().replace(",", "."));
@@ -112,7 +112,7 @@ function buildSheet(wb: ExcelJS.Workbook, spec: SheetSpec): void {
             ? { formula: value.formula }
             : { formula: value.formula, result: value.result };
       } else if (value !== null) {
-        cell.value = r === 0 ? value : coerce(value, kinds.get(c + 1));
+        cell.value = r === 0 ? value : coerceCell(value, kinds.get(c + 1));
       }
       const column = columns[c];
       const base = r === 0 ? column?.headerStyle : column?.cellStyle;

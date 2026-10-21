@@ -19,6 +19,36 @@ async function main(): Promise<void> {
     ["відсутні аркуші", {}, /sheets/],
     ["адреса закріплення", { sheets: [{ name: "A", rows: [], freeze: "2A" }] }, /некоректна адреса/],
   ];
+  // Суми і дати, передані текстом, мають стати числами і датами у файлі.
+  const journal = {
+    filename: "journal.xlsx",
+    sheets: [
+      {
+        name: "Журнал",
+        columns: [{ cellStyle: { numFmt: "dd.mm.yyyy" } }, { cellStyle: { numFmt: "#,##0.00" } }],
+        rows: [["Дата", "Сума, грн"], ["01.03.2025", "1200"], ["2025-03-05", "350,5"]],
+        validations: [{ ref: "B2:B11", type: "decimal", operator: "greaterThan", formulae: [0] }],
+      },
+    ],
+  };
+  const jr = await runCreateXlsx(journal);
+  assert.ok(jr.ok, !jr.ok ? jr.error : "");
+  const ExcelJS = (await import("exceljs")).default;
+  const wb = new ExcelJS.Workbook();
+  const bytes = Buffer.from(await jr.blob.arrayBuffer()) as unknown as Parameters<typeof wb.xlsx.load>[0];
+  await wb.xlsx.load(bytes);
+  const ws = wb.getWorksheet("Журнал");
+  assert.ok(ws, "аркуш не знайдено");
+  assert.equal(ws.getCell("B2").value, 1200);
+  assert.equal(ws.getCell("B3").value, 350.5);
+  const d1 = ws.getCell("A2").value;
+  assert.ok(d1 instanceof Date, "дата має бути Date, а не текст");
+  assert.equal(d1.toISOString().slice(0, 10), "2025-03-01");
+  const d2 = ws.getCell("A3").value;
+  assert.ok(d2 instanceof Date, "дата у форматі ISO має бути Date");
+  assert.equal(d2.toISOString().slice(0, 10), "2025-03-05");
+  console.log("PASS  суми з тексту стали числами, дати стали датами у файлі");
+
   for (const [label, input, pattern] of cases) {
     const res = await runCreateXlsx(input);
     assert.ok(!res.ok, `має бути помилка: ${label}`);

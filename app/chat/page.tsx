@@ -36,6 +36,8 @@ import {
 } from "@/lib/db";
 import { CREATE_XLSX_TOOL, MAX_TOOL_STEPS, XLSX_GUIDANCE, runCreateXlsx } from "@/lib/xlsx/tool";
 import { requestPersistence } from "@/lib/persist";
+import type { DiffEntry } from "@/lib/xlsx/fill";
+import { FILL_XLSX_TOOL, describeUpload, runFillXlsx } from "@/lib/xlsx/fill-tool";
 import { backupFilename, buildBackup, restoreBackup } from "@/lib/backup";
 
 const fmt = (n: number) => n.toLocaleString("uk-UA");
@@ -62,6 +64,8 @@ export default function ChatPage() {
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [newChatModel, setNewChatModel] = useState<string>(DEFAULT_MODEL);
   const [backupMessage, setBackupMessage] = useState<string | null>(null);
+  const [upload, setUpload] = useState<{ name: string; buffer: ArrayBuffer; summary: string } | null>(null);
+  const [fillResult, setFillResult] = useState<{ name: string; blob: Blob; diff: DiffEntry[] } | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -247,6 +251,39 @@ export default function ChatPage() {
     setTimeout(() => URL.revokeObjectURL(url), 10000);
   }
 
+  async function onUpload(file: File | undefined) {
+    if (!file || busy) return;
+    try {
+      const buffer = await file.arrayBuffer();
+      const { inspectXlsx } = await import("@/lib/xlsx/fill");
+      const info = await inspectXlsx(buffer);
+      setUpload({ name: file.name, buffer, summary: describeUpload(file.name, info) });
+      setFillResult(null);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не вдалося прочитати таблицю.");
+    }
+  }
+
+  // Файл з змінами створюється тільки після підтвердження користувачем.
+  async function confirmFill() {
+    if (!fillResult || !activeConv || busy) return;
+    try {
+      const meta = await saveFile(fillResult.name, fillResult.blob);
+      const reply = await addMessage(
+        activeConv.id,
+        "assistant",
+        `Файл з підтвердженими змінами: ${fillResult.name}`,
+        undefined,
+        [meta]
+      );
+      setMessages((prev) => [...prev, reply]);
+      setFillResult(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не вдалося зберегти файл.");
+    }
+  }
+
   async function exportBackup() {
     try {
       const data = await buildBackup();
@@ -329,6 +366,7 @@ export default function ChatPage() {
       const apiMessages: ApiMessage[] = toTurns(visible.filter((m) => m.createdAt > cutoff));
       const system: SystemBlock[] = [
         { type: "text", text: XLSX_GUIDANCE },
+        ...(upload ? [{ type: "text" as const, text: upload.summary }] : []),
         ...buildSystem(project, conv.summary ?? null),
       ];
 
@@ -339,6 +377,8 @@ export default function ChatPage() {
       const produced: { name: string; blob: Blob }[] = [];
       setStreamText("");
 
+      let fillOutcome: { name: string; blob: Blob; diff: DiffEntry[] } | null = null;
+
       // Цикл ходів: якщо модель викликає create_xlsx, застосунок створює файл і повертає результат.
       for (let step = 0; ; step++) {
         let turn: Extract<TurnEvent, { type: "done" }> | null = null;
@@ -347,7 +387,7 @@ export default function ChatPage() {
           model,
           system,
           messages: apiMessages,
-          tools: [CREATE_XLSX_TOOL],
+          tools: upload ? [CREATE_XLSX_TOOL, FILL_XLSX_TOOL] : [CREATE_XLSX_TOOL],
           signal: controller.signal,
         })) {
           if (ev.type === "text") {
@@ -369,6 +409,17 @@ export default function ChatPage() {
         setStatus("Створюємо файл…");
         const results: ContentBlock[] = [];
         for (const tool of toolUses) {
+          if (tool.name === "fill_xlsx" && upload) {
+            const fill = await runFillXlsx(tool.input, upload.buffer);
+            if (fill.ok) {
+              const base = upload.name.replace(/\.xlsx$/i, "");
+              fillOutcome = { name: `${base}_змінено.xlsx`, blob: fill.blob, diff: fill.diff };
+              results.push({ type: "tool_result", tool_use_id: tool.id, content: fill.summary });
+            } else {
+              results.push({ type: "tool_result", tool_use_id: tool.id, content: fill.error, is_error: true });
+            }
+            continue;
+          }
           const run = await runCreateXlsx(tool.input);
           if (run.ok) {
             produced.push({ name: run.name, blob: run.blob });
@@ -388,6 +439,8 @@ export default function ChatPage() {
 
       setStreamText(null);
       setStatus(null);
+
+      if (fillOutcome) setFillResult(fillOutcome);
 
       const replyText =
         fullText.trim() ||
@@ -611,6 +664,53 @@ export default function ChatPage() {
           {error}
         </p>
       )}
+
+      {fillResult && (
+        <section className="raised panel stack-sm" aria-label="Зміни до підтвердження">
+          <h2 className="section-title">Зміни до підтвердження ({fillResult.diff.length})</h2>
+          <ul className="diff-list">
+            {fillResult.diff.slice(0, 30).map((d, i) => (
+              <li key={i}>
+                <span className="muted">
+                  {d.sheet} · {d.ref} · {d.header}:
+                </span>{" "}
+                {d.before || "порожньо"} → <strong>{d.after || "порожньо"}</strong>
+              </li>
+            ))}
+          </ul>
+          {fillResult.diff.length > 30 && <p className="muted">Показано перші 30 змін.</p>}
+          <div className="file-actions">
+            <button className="btn btn-primary" type="button" onClick={() => void confirmFill()}>
+              Підтвердити і створити файл
+            </button>
+            <button className="btn" type="button" onClick={() => setFillResult(null)}>
+              Скасувати
+            </button>
+          </div>
+        </section>
+      )}
+
+      <div className="attach-row">
+        {upload ? (
+          <div className="upload-chip">
+            <span>Таблиця: {upload.name}</span>
+            <button type="button" className="link-btn" onClick={() => setUpload(null)} disabled={busy}>
+              Прибрати
+            </button>
+          </div>
+        ) : (
+          <label className="btn file-pick">
+            Завантажити таблицю
+            <input
+              type="file"
+              accept=".xlsx"
+              className="sr-only"
+              disabled={busy}
+              onChange={(e) => void onUpload(e.target.files?.[0])}
+            />
+          </label>
+        )}
+      </div>
 
       <form className="composer" onSubmit={send}>
         <textarea

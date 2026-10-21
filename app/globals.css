@@ -329,3 +329,11 @@ textarea.inset {
   justify-content: center;
   position: relative;
 }
+
+/* Дії з файлом: поділитися і зберегти */
+.file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}

@@ -207,6 +207,30 @@ export default function ChatPage() {
     abortRef.current?.abort();
   }
 
+  // Системне меню iOS: «Зберегти в Файли», відкриття в Numbers чи Excel тощо.
+  async function shareFile(file: StoredFileMeta) {
+    const blob = await getFileBlob(file.id);
+    if (!blob) {
+      setError("Файл більше недоступний. Попросіть створити його знову.");
+      return;
+    }
+    const data = new File([blob], file.name, {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    if (typeof navigator !== "undefined" && navigator.share && navigator.canShare?.({ files: [data] })) {
+      try {
+        await navigator.share({ files: [data], title: file.name });
+      } catch (err) {
+        // Скасування користувачем не є помилкою.
+        if (!(err instanceof DOMException && err.name === "AbortError")) {
+          setError("Не вдалося поділитися файлом. Спробуйте «Зберегти».");
+        }
+      }
+      return;
+    }
+    await downloadFile(file);
+  }
+
   async function downloadFile(file: StoredFileMeta) {
     const blob = await getFileBlob(file.id);
     if (!blob) {
@@ -555,15 +579,22 @@ export default function ChatPage() {
               {m.files && m.files.length > 0 && (
                 <div className="file-list">
                   {m.files.map((f) => (
-                    <button
-                      key={f.id}
-                      type="button"
-                      className="file-card"
-                      onClick={() => void downloadFile(f)}
-                    >
+                    <div key={f.id} className="file-card">
                       <span className="file-name">{f.name}</span>
                       <span className="file-meta">Excel · {fmtSize(f.size)}</span>
-                    </button>
+                      <div className="file-actions">
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => void shareFile(f)}
+                        >
+                          Поділитися
+                        </button>
+                        <button type="button" className="btn" onClick={() => void downloadFile(f)}>
+                          Зберегти
+                        </button>
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}

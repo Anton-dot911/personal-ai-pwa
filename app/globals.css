@@ -337,3 +337,39 @@ textarea.inset {
   gap: 8px;
   margin-top: 8px;
 }
+
+/* Заповнення таблиці: завантаження, зміни до підтвердження */
+.attach-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.upload-chip {
+  align-items: center;
+  color: var(--ink-muted);
+  display: flex;
+  font-size: 0.9rem;
+  gap: 10px;
+}
+
+.link-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.diff-list {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 0;
+}

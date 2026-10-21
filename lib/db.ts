@@ -219,3 +219,21 @@ export async function setConversationModel(id: string, model: string): Promise<v
     await db.put("conversations", { ...conversation, model });
   }
 }
+
+export async function listAllMessages(): Promise<Message[]> {
+  return (await getDB()).getAll("messages");
+}
+
+// Записує дані з резервної копії. Однакові id оновлюються, тож повторне відновлення безпечне.
+export async function importRecords(data: {
+  projects: Project[];
+  conversations: Conversation[];
+  messages: Message[];
+}): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction(["projects", "conversations", "messages"], "readwrite");
+  for (const p of data.projects) void tx.objectStore("projects").put(p);
+  for (const c of data.conversations) void tx.objectStore("conversations").put(c);
+  for (const m of data.messages) void tx.objectStore("messages").put(m);
+  await tx.done;
+}

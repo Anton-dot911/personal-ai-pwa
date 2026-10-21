@@ -320,3 +320,12 @@ textarea.inset {
   min-width: 0;
   padding: 10px 12px;
 }
+
+/* Резервна копія: кнопка вибору файлу */
+.file-pick {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}

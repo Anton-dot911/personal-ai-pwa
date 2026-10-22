@@ -1,4 +1,4 @@
-import { openDB, type DBSchema, type IDBPDatabase } from "idb";
+import { openDB, type DBSchema, type IDBPDatabase, type IDBPTransaction } from "idb";
 import type { Usage } from "@/lib/anthropic";
 import { DEFAULT_MODEL } from "@/lib/config";
 
@@ -235,5 +235,38 @@ export async function importRecords(data: {
   for (const p of data.projects) void tx.objectStore("projects").put(p);
   for (const c of data.conversations) void tx.objectStore("conversations").put(c);
   for (const m of data.messages) void tx.objectStore("messages").put(m);
+  await tx.done;
+}
+
+type WriteTx = IDBPTransaction<AppDB, ("projects" | "conversations" | "messages" | "files")[], "readwrite">;
+
+// Видаляє розмову, її повідомлення і файли, створені в ній.
+async function removeConversationData(tx: WriteTx, conversationId: string): Promise<void> {
+  const messages = await tx.objectStore("messages").index("by-conversation").getAll(conversationId);
+  for (const message of messages) {
+    for (const file of message.files ?? []) {
+      await tx.objectStore("files").delete(file.id);
+    }
+    await tx.objectStore("messages").delete(message.id);
+  }
+  await tx.objectStore("conversations").delete(conversationId);
+}
+
+export async function deleteConversation(id: string): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction(["projects", "conversations", "messages", "files"], "readwrite");
+  await removeConversationData(tx, id);
+  await tx.done;
+}
+
+// Видаляє проєкт разом з його контекстом, розмовами, повідомленнями і файлами.
+export async function deleteProject(id: string): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction(["projects", "conversations", "messages", "files"], "readwrite");
+  const conversations = await tx.objectStore("conversations").getAll();
+  for (const conversation of conversations) {
+    if (conversation.projectId === id) await removeConversationData(tx, conversation.id);
+  }
+  await tx.objectStore("projects").delete(id);
   await tx.done;
 }

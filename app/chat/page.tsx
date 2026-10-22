@@ -19,6 +19,8 @@ import {
   addMessage,
   createConversation,
   createProject,
+  deleteConversation,
+  deleteProject,
   getApiKey,
   getFileBlob,
   getMessages,
@@ -64,6 +66,8 @@ export default function ChatPage() {
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [newChatModel, setNewChatModel] = useState<string>(DEFAULT_MODEL);
   const [backupMessage, setBackupMessage] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<{ kind: "conversation" | "project"; id: string } | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [upload, setUpload] = useState<{ name: string; buffer: ArrayBuffer; summary: string } | null>(null);
   const [fillResult, setFillResult] = useState<{ name: string; blob: Blob; diff: DiffEntry[] } | null>(null);
 
@@ -249,6 +253,39 @@ export default function ChatPage() {
     link.click();
     link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  async function deleteConversationById(id: string) {
+    if (busy) return;
+    try {
+      await deleteConversation(id);
+      if (activeConv?.id === id) {
+        setActiveConv(null);
+        setMessages([]);
+      }
+      setConfirmDelete(null);
+      await refreshConversations(selectedProjectId);
+      setNotice("Розмову видалено.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не вдалося видалити розмову.");
+    }
+  }
+
+  async function deleteProjectById(id: string) {
+    if (busy) return;
+    try {
+      await deleteProject(id);
+      setProjects(await listProjects());
+      setSelectedProjectId(null);
+      setContextDraft("");
+      setActiveConv(null);
+      setMessages([]);
+      setConfirmDelete(null);
+      await refreshConversations(null);
+      setNotice("Проєкт і його розмови видалено.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не вдалося видалити проєкт.");
+    }
   }
 
   async function onUpload(file: File | undefined) {
@@ -534,7 +571,7 @@ export default function ChatPage() {
           ) : (
             <ul className="list">
               {conversations.map((c) => (
-                <li key={c.id}>
+                <li key={c.id} className="conv-row">
                   <button
                     className="link"
                     type="button"
@@ -543,9 +580,43 @@ export default function ChatPage() {
                   >
                     {c.title}
                   </button>
+                  <button
+                    className="link-btn danger"
+                    type="button"
+                    onClick={() => setConfirmDelete({ kind: "conversation", id: c.id })}
+                    disabled={busy}
+                  >
+                    Видалити
+                  </button>
                 </li>
               ))}
             </ul>
+          )}
+
+          {confirmDelete && (
+            <div className="stack-sm confirm-box">
+              <p>
+                {confirmDelete.kind === "project"
+                  ? `Буде видалено проєкт «${selectedProject?.name ?? ""}», його контекст і розмови (${conversations.length}) з повідомленнями та файлами. Це не можна скасувати.`
+                  : `Буде видалено розмову «${conversations.find((c) => c.id === confirmDelete.id)?.title ?? ""}» з повідомленнями та файлами. Це не можна скасувати.`}
+              </p>
+              <div className="file-actions">
+                <button
+                  className="btn btn-danger"
+                  type="button"
+                  onClick={() =>
+                    void (confirmDelete.kind === "project"
+                      ? deleteProjectById(confirmDelete.id)
+                      : deleteConversationById(confirmDelete.id))
+                  }
+                >
+                  Так, видалити
+                </button>
+                <button className="btn" type="button" onClick={() => setConfirmDelete(null)}>
+                  Скасувати
+                </button>
+              </div>
+            </div>
           )}
 
           {selectedProject && (
@@ -568,6 +639,14 @@ export default function ChatPage() {
                 disabled={contextDraft === selectedProject.pinnedContext}
               >
                 Зберегти контекст
+              </button>
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={() => setConfirmDelete({ kind: "project", id: selectedProject.id })}
+                disabled={busy}
+              >
+                Видалити проєкт
               </button>
             </div>
           )}
@@ -658,6 +737,8 @@ export default function ChatPage() {
         {streamText !== null && <div className="msg-assistant">{streamText || "…"}</div>}
         <div ref={endRef} />
       </div>
+
+      {notice && <p className="muted">{notice}</p>}
 
       {error && (
         <p className="error" role="alert">

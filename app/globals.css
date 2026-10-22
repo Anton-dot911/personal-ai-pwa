@@ -373,3 +373,24 @@ textarea.inset {
   overflow-y: auto;
   padding: 0;
 }
+
+/* Видалення розмов і проєктів */
+.conv-row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.link-btn.danger {
+  color: #b3261e;
+}
+
+.btn-danger {
+  color: #b3261e;
+}
+
+.confirm-box {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 10px;
+}

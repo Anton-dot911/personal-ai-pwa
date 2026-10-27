@@ -394,3 +394,15 @@ textarea.inset {
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   padding-top: 10px;
 }
+
+/* Журнал дій під відповіддю: лише те, що підтвердили інструменти */
+.action-log {
+  color: var(--ink-muted);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  gap: 4px;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}

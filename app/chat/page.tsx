@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import {
   listModels,
   streamTurn,
-  toTurns,
   type ApiMessage,
   type ContentBlock,
   type ModelInfo,
@@ -14,19 +13,21 @@ import {
   type Usage,
 } from "@/lib/anthropic";
 import { COMPACT_THRESHOLD_TOKENS, DEFAULT_MODEL } from "@/lib/config";
-import { buildSystem, compactConversation, contextSize, splitForCompaction } from "@/lib/context";
+import { buildSystem, compactConversation, contextSize, splitForCompaction, toApiHistory } from "@/lib/context";
 import {
   addMessage,
   createConversation,
   createProject,
   deleteConversation,
   deleteProject,
+  getAllowedDomains,
   getApiKey,
   getFileBlob,
   getMessages,
   listConversations,
   listProjects,
   saveFile,
+  setAllowedDomains,
   setConversationModel,
   touchConversation,
   updateConversationSummary,
@@ -38,6 +39,8 @@ import {
 } from "@/lib/db";
 import { CREATE_XLSX_TOOL, MAX_TOOL_STEPS, XLSX_GUIDANCE, runCreateXlsx } from "@/lib/xlsx/tool";
 import { requestPersistence } from "@/lib/persist";
+import { WEB_GUIDANCE, buildWebFetchTool, parseDomains } from "@/lib/web";
+import type { ToolParam } from "@/lib/anthropic";
 import type { DiffEntry } from "@/lib/xlsx/fill";
 import { FILL_XLSX_TOOL, describeUpload, runFillXlsx } from "@/lib/xlsx/fill-tool";
 import { backupFilename, buildBackup, restoreBackup } from "@/lib/backup";
@@ -68,6 +71,7 @@ export default function ChatPage() {
   const [backupMessage, setBackupMessage] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<{ kind: "conversation" | "project"; id: string } | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  const [domainsDraft, setDomainsDraft] = useState("");
   const [upload, setUpload] = useState<{ name: string; buffer: ArrayBuffer; summary: string } | null>(null);
   const [fillResult, setFillResult] = useState<{ name: string; blob: Blob; diff: DiffEntry[] } | null>(null);
 
@@ -109,6 +113,7 @@ export default function ChatPage() {
       setProjects(projectList);
       setSelectedProjectId(projectId);
       setContextDraft(projectList.find((p) => p.id === projectId)?.pinnedContext ?? "");
+      void getAllowedDomains().then((d) => setDomainsDraft(d.join("\n")));
       setConversations(
         latest ? allConversations.filter((c) => c.projectId === projectId) : []
       );
@@ -288,6 +293,17 @@ export default function ChatPage() {
     }
   }
 
+  async function saveDomains() {
+    const { domains, invalid } = parseDomains(domainsDraft);
+    if (invalid.length > 0) {
+      setError(`Некоректні домени: ${invalid.join(", ")}`);
+      return;
+    }
+    await setAllowedDomains(domains);
+    setDomainsDraft(domains.join("\n"));
+    setNotice(domains.length > 0 ? `Дозволено сайтів: ${domains.length}.` : "Відкриття сайтів вимкнено.");
+  }
+
   async function onUpload(file: File | undefined) {
     if (!file || busy) return;
     try {
@@ -312,7 +328,11 @@ export default function ChatPage() {
         "assistant",
         `Файл з підтвердженими змінами: ${fillResult.name}`,
         undefined,
-        [meta]
+        [meta],
+        {
+          source: "app",
+          actions: [`Файл створено після підтвердження: ${fillResult.name}`],
+        }
       );
       setMessages((prev) => [...prev, reply]);
       setFillResult(null);
@@ -400,10 +420,17 @@ export default function ChatPage() {
       setMessages(visible);
 
       const cutoff = conv.summaryCutoff ?? 0;
-      const apiMessages: ApiMessage[] = toTurns(visible.filter((m) => m.createdAt > cutoff));
+      const apiMessages: ApiMessage[] = toApiHistory(visible.filter((m) => m.createdAt > cutoff));
+      const allowedDomains = await getAllowedDomains();
+      const webTool = buildWebFetchTool(allowedDomains);
+      const tools: ToolParam[] = [
+        ...(upload ? [CREATE_XLSX_TOOL, FILL_XLSX_TOOL] : [CREATE_XLSX_TOOL]),
+        ...(webTool ? [webTool] : []),
+      ];
       const system: SystemBlock[] = [
         { type: "text", text: XLSX_GUIDANCE },
         ...(upload ? [{ type: "text" as const, text: upload.summary }] : []),
+        ...(webTool ? [{ type: "text" as const, text: WEB_GUIDANCE }] : []),
         ...buildSystem(project, conv.summary ?? null),
       ];
 
@@ -415,6 +442,10 @@ export default function ChatPage() {
       setStreamText("");
 
       let fillOutcome: { name: string; blob: Blob; diff: DiffEntry[] } | null = null;
+      const turnLog: ApiMessage[] = [];
+      const actions: string[] = [];
+      let finalContent: ContentBlock[] = [];
+      let finalStop: string | null = null;
 
       // Цикл ходів: якщо модель викликає create_xlsx, застосунок створює файл і повертає результат.
       for (let step = 0; ; step++) {
@@ -424,7 +455,7 @@ export default function ChatPage() {
           model,
           system,
           messages: apiMessages,
-          tools: upload ? [CREATE_XLSX_TOOL, FILL_XLSX_TOOL] : [CREATE_XLSX_TOOL],
+          tools,
           signal: controller.signal,
         })) {
           if (ev.type === "text") {
@@ -437,12 +468,39 @@ export default function ChatPage() {
         if (!turn) break; // перервано користувачем
 
         usage = turn.usage;
+        finalContent = turn.content;
         const toolUses = turn.content.filter(
           (block): block is Extract<ContentBlock, { type: "tool_use" }> => block.type === "tool_use"
         );
+        finalStop = turn.stopReason;
+        // Відкриті сторінки записуємо в журнал дій з реальних результатів сервера.
+        const urlById = new Map<string, string>();
+        for (const block of turn.content) {
+          if (block.type === "server_tool_use") {
+            const url = (block.input as { url?: unknown } | null)?.url;
+            if (typeof url === "string") urlById.set(block.id, url);
+          }
+        }
+        for (const block of turn.content) {
+          if (block.type !== "web_fetch_tool_result") continue;
+          const result = block.content as { type?: string; url?: string; error_code?: string };
+          const url = result.url ?? urlById.get(block.tool_use_id) ?? "посилання";
+          actions.push(
+            result.type === "web_fetch_tool_result_error"
+              ? `Не вдалося відкрити ${url}: ${result.error_code ?? "помилка"}`
+              : `Відкрито: ${url}`
+          );
+        }
+        // Пауза серверного інструмента: продовжуємо той самий хід без нового повідомлення користувача.
+        if (turn.stopReason === "pause_turn" && step < MAX_TOOL_STEPS) {
+          apiMessages.push({ role: "assistant", content: turn.content });
+          turnLog.push({ role: "assistant", content: turn.content });
+          continue;
+        }
         if (turn.stopReason !== "tool_use" || toolUses.length === 0 || step >= MAX_TOOL_STEPS) break;
 
         apiMessages.push({ role: "assistant", content: turn.content });
+        turnLog.push({ role: "assistant", content: turn.content });
         setStatus("Створюємо файл…");
         const results: ContentBlock[] = [];
         for (const tool of toolUses) {
@@ -451,8 +509,10 @@ export default function ChatPage() {
             if (fill.ok) {
               const base = upload.name.replace(/\.xlsx$/i, "");
               fillOutcome = { name: `${base}_змінено.xlsx`, blob: fill.blob, diff: fill.diff };
+              actions.push(`Підготовлено змін: ${fill.diff.length}, файл створиться після підтвердження`);
               results.push({ type: "tool_result", tool_use_id: tool.id, content: fill.summary });
             } else {
+              actions.push(`Помилка заповнення: ${fill.error}`);
               results.push({ type: "tool_result", tool_use_id: tool.id, content: fill.error, is_error: true });
             }
             continue;
@@ -460,8 +520,10 @@ export default function ChatPage() {
           const run = await runCreateXlsx(tool.input);
           if (run.ok) {
             produced.push({ name: run.name, blob: run.blob });
+            actions.push(`Створено файл «${run.name}»`);
             results.push({ type: "tool_result", tool_use_id: tool.id, content: run.summary });
           } else {
+            actions.push(`Помилка створення файлу: ${run.error}`);
             results.push({
               type: "tool_result",
               tool_use_id: tool.id,
@@ -471,6 +533,7 @@ export default function ChatPage() {
           }
         }
         apiMessages.push({ role: "user", content: results });
+        turnLog.push({ role: "user", content: results });
         setStatus(null);
       }
 
@@ -479,13 +542,22 @@ export default function ChatPage() {
 
       if (fillOutcome) setFillResult(fillOutcome);
 
+      // Хід із викликами інструментів зберігаємо повністю, щоб модель пам'ятала, що справді сталося.
+      const incomplete =
+        finalStop === "tool_use" || finalStop === "pause_turn" || finalContent.some((block) => block.type === "tool_use");
+      const storedTurn: ApiMessage[] | null =
+        turnLog.length > 0 && !incomplete ? [...turnLog, { role: "assistant", content: finalContent }] : null;
+
       const replyText =
         fullText.trim() ||
         (produced.length > 0 ? `Створено файл: ${produced.map((f) => f.name).join(", ")}` : "");
       if (replyText) {
         const files: StoredFileMeta[] = [];
         for (const f of produced) files.push(await saveFile(f.name, f.blob));
-        const reply = await addMessage(conv.id, "assistant", replyText, usage, files);
+        const reply = await addMessage(conv.id, "assistant", replyText, usage, files, {
+          apiTurn: storedTurn ?? undefined,
+          actions: actions.length > 0 ? actions : undefined,
+        });
         setMessages((prev) => [...prev, reply]);
       }
       await touchConversation(conv.id);
@@ -693,6 +765,24 @@ export default function ChatPage() {
             </label>
             {backupMessage && <p className="muted">{backupMessage}</p>}
           </div>
+
+          <div className="stack-sm">
+            <h2 className="section-title">Дозволені сайти</h2>
+            <p className="muted">
+              Модель відкриватиме посилання тільки з цих доменів. По одному в рядку, наприклад example.com.
+              Порожній список вимикає відкриття сайтів.
+            </p>
+            <textarea
+              className="inset"
+              rows={3}
+              value={domainsDraft}
+              onChange={(e) => setDomainsDraft(e.target.value)}
+              placeholder="example.com"
+            />
+            <button className="btn" type="button" onClick={() => void saveDomains()}>
+              Зберегти сайти
+            </button>
+          </div>
         </section>
       )}
 
@@ -708,6 +798,13 @@ export default function ChatPage() {
           ) : (
             <div key={m.id} className="msg-assistant">
               {m.content}
+              {m.actions && m.actions.length > 0 && (
+                <ul className="action-log">
+                  {m.actions.map((a, i) => (
+                    <li key={i}>{a}</li>
+                  ))}
+                </ul>
+              )}
               {m.files && m.files.length > 0 && (
                 <div className="file-list">
                   {m.files.map((f) => (

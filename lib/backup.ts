@@ -77,6 +77,9 @@ function checkMessage(raw: unknown): Message {
     content: raw.content,
     usage: isObj(raw.usage) ? (raw.usage as unknown as Message["usage"]) : undefined,
     files: Array.isArray(raw.files) ? (raw.files as Message["files"]) : undefined,
+    apiTurn: Array.isArray(raw.apiTurn) ? (raw.apiTurn as Message["apiTurn"]) : undefined,
+    actions: Array.isArray(raw.actions) ? (raw.actions as string[]) : undefined,
+    source: raw.source === "app" ? "app" : undefined,
     createdAt: Number(raw.createdAt) || 0,
   };
 }

@@ -1,4 +1,4 @@
-import { completeText, type SystemBlock, type Usage } from "@/lib/anthropic";
+import { completeText, type ApiMessage, type SystemBlock, type Usage } from "@/lib/anthropic";
 import { KEEP_RECENT_MESSAGES } from "@/lib/config";
 import type { Message, Project } from "@/lib/db";
 
@@ -72,4 +72,29 @@ export async function compactConversation(params: {
   const summary = text.trim();
   if (!summary) throw new Error("Не вдалося стиснути розмову. Спробуйте ще раз.");
   return summary;
+}
+
+// Історія для API. Ходи з викликами інструментів відтворюються як були. Інакше модель не знає,
+// що насправді сталося, і може вигадати дію або пізніше її заперечити.
+export function toApiHistory(messages: Message[]): ApiMessage[] {
+  const out: ApiMessage[] = [];
+  const push = (m: ApiMessage) => {
+    const last = out[out.length - 1];
+    if (last && last.role === m.role && typeof last.content === "string" && typeof m.content === "string") {
+      last.content = `${last.content}\n\n${m.content}`;
+    } else {
+      out.push({ role: m.role, content: m.content });
+    }
+  };
+  for (const m of messages) {
+    // Повідомлення застосунку подаються моделі як його власні слова не були б: це факт від застосунку.
+    if (m.source === "app") {
+      push({ role: "user", content: `[Повідомлення застосунку] ${m.content}` });
+    } else if (m.role === "assistant" && m.apiTurn && m.apiTurn.length > 0) {
+      for (const turn of m.apiTurn) push(turn);
+    } else {
+      push({ role: m.role, content: m.content });
+    }
+  }
+  return out;
 }

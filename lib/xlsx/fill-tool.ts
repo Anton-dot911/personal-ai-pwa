@@ -38,6 +38,7 @@ export const FILL_XLSX_TOOL: ToolDef = {
 export function describeUpload(name: string, sheets: SheetInfo[]): string {
   const lines = [
     `Користувач завантажив таблицю «${name}». Щоб змінити її, викликай fill_xlsx. Формули не змінюй.`,
+    "Файл з'являється лише після підтвердження користувачем. Не пиши, що він уже створений, якщо інструмент не повернув успіх.",
     "Аркуші:",
   ];
   for (const s of sheets) {

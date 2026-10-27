@@ -26,7 +26,9 @@ export interface Usage {
 export type ContentBlock =
   | { type: "text"; text: string }
   | { type: "tool_use"; id: string; name: string; input: unknown }
-  | { type: "tool_result"; tool_use_id: string; content: string; is_error?: boolean };
+  | { type: "tool_result"; tool_use_id: string; content: string; is_error?: boolean }
+  | { type: "server_tool_use"; id: string; name: string; input: unknown }
+  | { type: "web_fetch_tool_result"; tool_use_id: string; content: unknown };
 
 export interface ApiMessage {
   role: "user" | "assistant";
@@ -38,6 +40,15 @@ export interface ToolDef {
   description: string;
   input_schema: Record<string, unknown>;
 }
+
+// Серверний інструмент виконує Anthropic (наприклад, web_fetch). Йому не потрібен input_schema.
+export interface ServerToolDef {
+  type: string;
+  name: string;
+  [key: string]: unknown;
+}
+
+export type ToolParam = ToolDef | ServerToolDef;
 
 export type TurnEvent =
   | { type: "text"; text: string }
@@ -142,18 +153,19 @@ interface StreamEvent {
   type: string;
   index?: number;
   delta?: { type?: string; text?: string; partial_json?: string; stop_reason?: string | null };
-  content_block?: { type?: string; id?: string; name?: string };
+  content_block?: { type?: string; id?: string; name?: string; [key: string]: unknown };
   message?: { usage?: RawUsage };
   usage?: RawUsage;
   error?: { message?: string };
 }
 
 interface BlockAcc {
-  kind: "text" | "tool_use";
+  kind: "text" | "tool_use" | "server_tool_use" | "raw";
   text: string;
   id?: string;
   name?: string;
   json: string;
+  raw?: unknown;
 }
 
 function parseSse(raw: string): StreamEvent | null {
@@ -181,7 +193,7 @@ export async function* streamTurn(params: {
   model: string;
   system?: SystemBlock[];
   messages: ApiMessage[];
-  tools?: ToolDef[];
+  tools?: ToolParam[];
   signal?: AbortSignal;
   maxTokens?: number;
 }): AsyncGenerator<TurnEvent> {
@@ -238,12 +250,18 @@ export async function* streamTurn(params: {
         }
         if (event.type === "content_block_start" && event.index !== undefined) {
           const cb = event.content_block;
-          blocks.set(
-            event.index,
-            cb?.type === "tool_use"
-              ? { kind: "tool_use", text: "", id: cb.id, name: cb.name, json: "" }
-              : { kind: "text", text: "", json: "" }
-          );
+          let acc: BlockAcc;
+          if (cb?.type === "tool_use") {
+            acc = { kind: "tool_use", text: "", id: cb.id, name: cb.name, json: "" };
+          } else if (cb?.type === "server_tool_use") {
+            acc = { kind: "server_tool_use", text: "", id: cb.id, name: cb.name, json: "" };
+          } else if (cb?.type === "web_fetch_tool_result") {
+            // Результат приходить повністю в момент старту блоку. Зберігаємо його без змін.
+            acc = { kind: "raw", text: "", json: "", raw: cb };
+          } else {
+            acc = { kind: "text", text: "", json: "" };
+          }
+          blocks.set(event.index, acc);
         }
         if (event.type === "content_block_delta" && event.index !== undefined && event.delta) {
           const block = blocks.get(event.index);
@@ -269,6 +287,17 @@ export async function* streamTurn(params: {
     if (!block) continue;
     if (block.kind === "text" && block.text) {
       content.push({ type: "text", text: block.text });
+    }
+    if (block.kind === "server_tool_use") {
+      content.push({
+        type: "server_tool_use",
+        id: block.id ?? "",
+        name: block.name ?? "",
+        input: parseToolInput(block.json),
+      });
+    }
+    if (block.kind === "raw" && block.raw) {
+      content.push(block.raw as ContentBlock);
     }
     if (block.kind === "tool_use") {
       content.push({

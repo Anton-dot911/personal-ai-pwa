@@ -1,5 +1,5 @@
 import { openDB, type DBSchema, type IDBPDatabase, type IDBPTransaction } from "idb";
-import type { Usage } from "@/lib/anthropic";
+import type { ApiMessage, Usage } from "@/lib/anthropic";
 import { DEFAULT_MODEL } from "@/lib/config";
 
 export type Role = "user" | "assistant";
@@ -36,6 +36,12 @@ export interface Message {
   content: string;
   usage?: Usage;
   files?: StoredFileMeta[];
+  /** Повний хід із викликами інструментів, щоб модель пам'ятала, що сталося. */
+  apiTurn?: ApiMessage[];
+  /** Журнал дій, сформований застосунком з реальних результатів інструментів. */
+  actions?: string[];
+  /** Повідомлення, яке сформував застосунок (не модель). */
+  source?: "app";
   createdAt: number;
 }
 
@@ -179,7 +185,8 @@ export async function addMessage(
   role: Role,
   content: string,
   usage?: Usage,
-  files?: StoredFileMeta[]
+  files?: StoredFileMeta[],
+  extra?: { apiTurn?: ApiMessage[]; actions?: string[]; source?: "app" }
 ): Promise<Message> {
   const message: Message = {
     id: newId(),
@@ -188,6 +195,9 @@ export async function addMessage(
     content,
     usage,
     files,
+    apiTurn: extra?.apiTurn,
+    actions: extra?.actions,
+    source: extra?.source,
     createdAt: Date.now(),
   };
   await (await getDB()).put("messages", message);
@@ -269,4 +279,14 @@ export async function deleteProject(id: string): Promise<void> {
   }
   await tx.objectStore("projects").delete(id);
   await tx.done;
+}
+
+// Домени, яких модель може відкривати. Порожній список вимикає відкриття сайтів.
+export async function getAllowedDomains(): Promise<string[]> {
+  const row = await (await getDB()).get("settings", "allowedDomains");
+  return Array.isArray(row?.value) ? (row.value as string[]) : [];
+}
+
+export async function setAllowedDomains(domains: string[]): Promise<void> {
+  await (await getDB()).put("settings", { key: "allowedDomains", value: domains });
 }
